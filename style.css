@@ -156,24 +156,29 @@ body {
 .products-section {
   padding: 6rem 8%;
   background-color: var(--bg-secondary);
+  background-image: radial-gradient(ellipse at left center, rgba(255, 62, 62, 0.07) 0%, transparent 55%);
 }
 
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 4rem;
-  letter-spacing: 1px;
+.product-img {
+  width: 100%;
+  height: 280px;                 /* un poco más alto para la torre */
+  overflow: hidden;
+  background-color: #0a0a0c;     /* fondo oscuro detrás de la imagen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.section-title span {
-  color: var(--accent-color);
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;           /* importante: así se ve completa la torre */
+  padding: 12px;                 /* pequeño espacio para que no se corte */
+  transition: transform 0.4s ease;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+.flip-card:hover .product-img img {
+  transform: scale(1.05);
 }
 
 /* --- EFECTO FLIP CARD (CSS PURO) --- */
