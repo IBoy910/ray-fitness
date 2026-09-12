@@ -4,23 +4,344 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RAY Fitness | Equipamiento Fitness en Perú</title>
+  <meta name="description" content="RAY Fitness - Equipamiento fitness de calidad en Perú. Mancuernas, barras, discos, máquinas y accesorios para llevar tu entrenamiento al siguiente nivel.">
+  <meta name="keywords" content="fitness, Perú, mancuernas, barras, discos, gimnasio, equipamiento, RAY Fitness">
+  <meta name="author" content="RAY Fitness">
+  <!-- Open Graph -->
+  <meta property="og:title" content="RAY Fitness | Equipamiento Fitness en Perú">
+  <meta property="og:description" content="Encuentra el equipamiento ideal para llevar tu entrenamiento al siguiente nivel. Calidad, confianza y pasión por el fitness.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iboy910.github.io/ray-fitness/">
+  <meta property="og:image" content="imagenes/og-image.jpg">
   <!-- Fuentes e Íconos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* === Smooth scroll === */
+    html { scroll-behavior: smooth; }
+
+    /* === Hamburger Menu === */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: #111;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+      }
+      .nav-links.active { right: 0; }
+      .nav-links li { margin: 0; }
+      .nav-links a { font-size: 1.3rem; }
+    }
+
+    /* === Scroll to Top Button === */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #e63946, #c0392b);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      box-shadow: 0 4px 15px rgba(230,57,70,0.4);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .scroll-top-btn.visible { display: flex; }
+    .scroll-top-btn:hover { transform: scale(1.1); }
+
+    /* === Nosotros Section === */
+    .nosotros-section {
+      padding: 80px 5%;
+      background: #0d0d0d;
+    }
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+    .nosotros-text h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 1.2rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .nosotros-text h2 span { color: #e63946; }
+    .nosotros-text p {
+      font-size: 1.05rem;
+      color: #ccc;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .nosotros-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .stat-box {
+      text-align: center;
+    }
+    .stat-box .stat-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #e63946;
+      font-family: 'Outfit', sans-serif;
+    }
+    .stat-box .stat-label {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 0.3rem;
+    }
+    .nosotros-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .nosotros-image img {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(230,57,70,0.2);
+    }
+    .nosotros-values {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .value-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(230,57,70,0.1);
+      border: 1px solid rgba(230,57,70,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      color: #e63946;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .nosotros-grid { grid-template-columns: 1fr; text-align: center; }
+      .nosotros-stats { justify-content: center; }
+      .nosotros-values { justify-content: center; }
+      .nosotros-image img { max-width: 300px; }
+    }
+
+    /* === Testimonios Section === */
+    .testimonios-section {
+      padding: 80px 5%;
+      background: #111;
+    }
+    .testimonios-section .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .testimonios-section .section-title span { color: #e63946; }
+    .testimonios-subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .testimonio-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonio-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(230,57,70,0.15);
+    }
+    .testimonio-stars {
+      color: #f1c40f;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .testimonio-text {
+      color: #ccc;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+    .testimonio-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .testimonio-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e63946, #c0392b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .testimonio-name {
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .testimonio-role {
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    /* === Improved Footer === */
+    .site-footer {
+      background: #0a0a0a;
+      padding: 60px 5% 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-brand .logo { font-size: 1.8rem; margin-bottom: 1rem; }
+    .footer-brand p { color: #888; font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+    .footer-social {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .footer-social a:hover {
+      background: #e63946;
+      color: #fff;
+      border-color: #e63946;
+      transform: translateY(-2px);
+    }
+    .footer-col h4 {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .footer-col a {
+      display: block;
+      color: #888;
+      font-size: 0.88rem;
+      margin-bottom: 0.6rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-col a:hover { color: #e63946; }
+    .footer-bottom {
+      border-top: 1px solid #1a1a1a;
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    .footer-quote {
+      color: #666;
+      font-style: italic;
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copyright {
+      color: #555;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
   <!-- Navegación -->
   <header class="navbar">
-   <div class="logo">RAY<span> FITNESS</span></div>
+    <div class="logo">RAY<span> FITNESS</span></div>
+    <div class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <nav>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#productos">Productos</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#testimonios">Opiniones</a></li>
+        <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
   </header>
@@ -29,475 +350,35 @@
   <section id="inicio" class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-    <span class="badge">RAY FITNESS | EQUIPAMIENTO FITNESS</span>
+      <span class="badge">RAY FITNESS | EQUIPAMIENTO FITNESS</span>
       <h1>LLEVA TU ENTRENAMIENTO AL <span>SIGUIENTE NIVEL</span></h1>
       <p>Encuentra el equipamiento ideal para llevar tu entrenamiento al siguiente nivel. Calidad, confianza y pasión por el fitness.</p>
-      <a href="#productos" class="btn-primary">VER CATÁLOGO <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="hero-buttons">
+        <a href="#productos" class="btn-primary">VER CATÁLOGO <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20sus%20productos%20fitness" target="_blank" class="btn-primary btn-whatsapp-hero"><i class="fa-brands fa-whatsapp"></i> CONTACTAR</a>
+      </div>
     </div>
   </section>
 
   <!-- Sección de Productos -->
   <section id="productos" class="products-section">
     <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
-    <!-- Categorías de productos -->
-<div class="categories">
-  <button class="category-btn active" data-category="todos">
-    Todos
-  </button>
-
-  <button class="category-btn" data-category="mancuernas">
-    Mancuernas
-  </button>
-
-  <button class="category-btn" data-category="barras">
-    Barras y Discos
-  </button>
-
-  <button class="category-btn" data-category="maquinas">
-    Máquinas
-  </button>
-
-  <button class="category-btn" data-category="accesorios">
-    Accesorios
-  </button>
-</div>
+    <div class="categories">
+      <button class="category-btn active" data-category="todos">Todos</button>
+      <button class="category-btn" data-category="mancuernas">Mancuernas</button>
+      <button class="category-btn" data-category="barras">Barras y Discos</button>
+      <button class="category-btn" data-category="maquinas">Máquinas</button>
+      <button class="category-btn" data-category="accesorios">Accesorios</button>
+    </div>
     <div class="products-grid">
-      <!-- Producto 11 - Bosu -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
 
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-
-      <div class="product-img">
-        <img src="imagenes/bosu.jpg" alt="Bosu de entrenamiento">
-      </div>
-
-      <div class="product-info">
-        <h3>Bosu</h3>
-
-        <div class="price-row">
-          <span class="price">Desde S/ 145.00</span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/bosu.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Bosu</h3>
-
-        <p class="detail-text">
-          • Ideal para mejorar el equilibrio y la estabilidad.<br>
-          • Permite realizar ejercicios de fuerza y entrenamiento funcional.<br>
-          • Ideal para trabajar abdomen, piernas y tren superior.<br>
-          • Excelente complemento para rutinas de acondicionamiento físico.<br>
-          • Diseño práctico y funcional para diferentes ejercicios.<br>
-          • Precio desde S/ 145.00.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20el%20Bosu"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 10 - Tatamis -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-
-      <div class="product-img">
-        <img src="imagenes/tatamis.jpg" alt="Tatamis para entrenamiento">
-      </div>
-
-      <div class="product-info">
-        <h3>Tatamis</h3>
-
-        <div class="price-row">
-          <span class="price">S/ 45.00</span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/tatamis.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Tatamis</h3>
-
-        <p class="detail-text">
-          • Superficie ideal para entrenamientos y ejercicios en el suelo.<br>
-          • Ayudan a proteger el piso durante el entrenamiento.<br>
-          • Ideales para artes marciales, calistenia, yoga y funcional.<br>
-          • Diseño práctico para armar diferentes espacios de entrenamiento.<br>
-          • Fáciles de colocar, retirar y transportar.<br>
-          • Precio: S/ 45.00.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Tatamis"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 9 - Barras Olímpicas -->
-<div class="flip-card" data-category="barras">
-  <div class="flip-card-inner">
-
-    <div class="flip-card-front">
-      <div class="card-tag">OLÍMPICA</div>
-
-      <div class="product-img">
-        <img src="imagenes/barras-olimpicas.jpg" alt="Barras Olímpicas">
-      </div>
-
-      <div class="product-info">
-        <h3>Barras Olímpicas</h3>
-
-        <div class="price-row">
-          <span class="price">Desde S/ 95.00</span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/barras-olimpicas.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Barras Olímpicas</h3>
-
-        <p class="detail-text">
-          • Barras ideales para levantamiento de pesas y entrenamiento de fuerza.<br>
-          • Compatibles con discos olímpicos.<br>
-          • Disponibles en diferentes modelos y medidas.<br>
-          • Diseño resistente para entrenamientos exigentes.<br>
-          • Ideales para ejercicios de pecho, espalda, piernas y hombros.<br>
-          • Precio según el modelo y medida de la barra.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20las%20Barras%20Olímpicas"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 8 - Discos de Caucho -->
-<div class="flip-card" data-category="barras">
-  <div class="flip-card-inner">
-
-    <div class="flip-card-front">
-      <div class="card-tag">DISCOS</div>
-
-      <div class="product-img">
-        <img src="imagenes/discos-caucho.jpg" alt="Discos de Caucho">
-      </div>
-
-      <div class="product-info">
-        <h3>Discos de Caucho</h3>
-
-        <div class="price-row">
-          <span class="price">S/ 9.00 por kg</span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/discos-caucho.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Discos de Caucho</h3>
-
-        <p class="detail-text">
-          • Discos de caucho ideales para entrenamientos de fuerza.<br>
-          • Precio: S/ 9.00 por kilogramo.<br>
-          • Compatibles con barras estándar.<br>
-          • Recubrimiento de caucho para ayudar a proteger el piso.<br>
-          • Ideales para ejercicios de pecho, espalda, brazos y piernas.<br>
-          • Disponible en diferentes pesos.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Discos%20de%20Caucho"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 7 - Barra Estándar -->
-<div class="flip-card" data-category="barras">
-  <div class="flip-card-inner">
-
-    <div class="flip-card-front">
-      <div class="card-tag">BARRA</div>
-
-      <div class="product-img">
-        <img src="imagenes/barras-standar.jpg" alt="Barras Estándar">
-      </div>
-
-      <div class="product-info">
-        <h3>Barras Estándar</h3>
-
-        <div class="price-row">
-          <span class="price">Desde S/ 55.00</span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/barras-standar.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Barras Estándar</h3>
-
-        <p class="detail-text">
-          • Barras ideales para entrenamientos de fuerza.<br>
-          • Disponibles en diferentes modelos y medidas.<br>
-          • Compatibles con discos estándar.<br>
-          • Diseño resistente y funcional.<br>
-          • Ideales para ejercicios de brazos, pecho, espalda y piernas.<br>
-          • Precio según el modelo y medida de la barra.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20las%20Barras%20Estándar"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 6 - Maleta de Acople -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-
-      <div class="product-img">
-        <img src="imagenes/maleta-acople.jpg" alt="Maleta de Acople">
-      </div>
-
-      <div class="product-info">
-        <h3>Maleta de Acople</h3>
-
-        <div class="price-row">
-          <span class="price">
-            20 kg: S/ 165.00<br>
-            30 kg: S/ 245.00<br>
-            50 kg: S/ 520.00
-          </span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/maleta-acople.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Maleta de Acople</h3>
-
-        <p class="detail-text">
-          • Accesorio ideal para entrenamientos de fuerza.<br>
-          • Permite trabajar diferentes grupos musculares.<br>
-          • Disponible en diferentes capacidades de peso.<br>
-          • Diseño resistente y funcional.<br>
-          • Ideal para complementar máquinas de poleas y entrenamiento funcional.<br><br>
-
-          <strong>Precios disponibles:</strong><br>
-          • 20 kg: S/ 165.00<br>
-          • 30 kg: S/ 245.00<br>
-          • 50 kg: S/ 520.00
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Maleta%20de%20Acople"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 5 - Accesorios de Poleas -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-
-      <div class="product-img">
-        <img src="imagenes/accesorios-poleas.jpg" alt="Accesorios de Poleas">
-      </div>
-
-      <div class="product-info">
-        <h3>Accesorios de Poleas</h3>
-
-        <div class="price-row">
-          <span class="price">Desde S/ 45.00</span>
-
-          <button class="btn-detail">
-            Ver Detalle <i class="fa-solid fa-rotate"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card-back" style="--bg-image: url('imagenes/accesorios-poleas.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Accesorios de Poleas</h3>
-
-        <p class="detail-text">
-          • Diferentes accesorios para máquinas de poleas.<br>
-          • Variedad de modelos y tipos de agarre.<br>
-          • Ideales para entrenamientos de espalda, brazos y hombros.<br>
-          • Fabricados con materiales resistentes y funcionales.<br>
-          • Precios según el modelo y tipo de accesorio.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Accesorios%20de%20Poleas"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      <!-- Producto 4 - Elíptica -->
-<div class="flip-card" data-category="maquinas">
-  <div class="flip-card-inner">
-
-    <!-- Cara Frontal -->
-    <div class="flip-card-front">
-      <div class="card-tag">MÁQUINA</div>
-
-      <div class="product-img">
-        <img src="imagenes/eliptica.jpg" alt="Elíptica Body Power 5 en 1">
-      </div>
-
-      <div class="product-info">
-        <h3>Elíptica Body Power 5 en 1</h3>
-
-        <<div class="price-row">
-  <span class="price">S/ 1,600.00</span>
-
-  <button class="btn-detail">
-    Ver Detalle <i class="fa-solid fa-rotate"></i>
-  </button>
-</div>
-      </div>
-    </div>
-
-    <!-- Cara Trasera -->
-    <div class="flip-card-back" style="--bg-image: url('imagenes/eliptica.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Elíptica Body Power 5 en 1</h3>
-
-        <p class="detail-text">
-          • Entrenamiento cardiovascular completo.<br>
-          • Sistema de resistencia ajustable.<br>
-          • Diseño 5 en 1 para diferentes ejercicios.<br>
-          • Ideal para entrenamientos en casa.<br>
-          • Diseño compacto y funcional.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Eliptica%20Body%20Power%205%20en%201"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-    <!-- Cara trasera -->
-    <div class="flip-card-back" style="--bg-image: url('imagenes/eliptica.jpg');">
-      <div class="back-overlay"></div>
-
-      <div class="back-content">
-        <h3>Elíptica Body Power 5 en 1</h3>
-
-        <p class="detail-text">
-          • Entrenamiento cardiovascular completo.<br>
-          • Sistema de resistencia ajustable.<br>
-          • Diseño compacto para el hogar.<br>
-          • Ideal para mejorar resistencia y condición física.
-        </p>
-
-        <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20eliptica"
-           target="_blank"
-           class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i>
-          Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-      
-      <!-- Producto 1 -->
+      <!-- Producto 1 - Mancuernas Hexagonales -->
       <div class="flip-card" data-category="mancuernas">
         <div class="flip-card-inner">
-          <!-- Cara Frontal -->
           <div class="flip-card-front">
             <div class="card-tag">MÁS VENDIDO</div>
             <div class="product-img">
-              <img src="imagenes/mancuernas.jpg"
-     alt="Mancuerna hexagonal RAY Fitness">
+              <img src="imagenes/mancuernas.jpg" alt="Mancuernas hexagonales RAY Fitness">
             </div>
             <div class="product-info">
               <h3>Set de Mancuernas Hexagonales</h3>
@@ -507,7 +388,6 @@
               </div>
             </div>
           </div>
-          <!-- Cara Trasera (Detalle) -->
           <div class="flip-card-back" style="--bg-image: url('imagenes/mancuernas.jpg');">
             <div class="back-overlay"></div>
             <div class="back-content">
@@ -526,11 +406,11 @@
         </div>
       </div>
 
-      <!-- Producto 2 -->
+      <!-- Producto 2 - Bandas de Resistencia -->
       <div class="flip-card" data-category="accesorios">
         <div class="flip-card-inner">
-          <!-- Cara Frontal -->
           <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
               <img src="imagenes/bandas.jpg" alt="Bandas de Resistencia">
             </div>
@@ -542,7 +422,6 @@
               </div>
             </div>
           </div>
-          <!-- Cara Trasera (Detalle) -->
           <div class="flip-card-back" style="--bg-image: url('imagenes/bandas.jpg');">
             <div class="back-overlay"></div>
             <div class="back-content">
@@ -561,14 +440,13 @@
         </div>
       </div>
 
-      <!-- Producto 3 -->
-      <div class="flip-card" data-category="accesorios">
+      <!-- Producto 3 - Set de barra con pesas 20kg -->
+      <div class="flip-card" data-category="barras">
         <div class="flip-card-inner">
-          <!-- Cara Frontal -->
           <div class="flip-card-front">
             <div class="card-tag">OFERTA</div>
             <div class="product-img">
-              <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=600&q=80" alt="Kettlebell">
+              <img src="imagenes/set-barra-20kg.jpg" alt="Set de barra con pesas 20kg">
             </div>
             <div class="product-info">
               <h3>Set de barra con pesas 20kg</h3>
@@ -578,18 +456,311 @@
               </div>
             </div>
           </div>
-          <!-- Cara Trasera (Detalle) -->
-          <div class="flip-card-back" style="--bg-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=600&q=80');">
+          <div class="flip-card-back" style="--bg-image: url('imagenes/set-barra-20kg.jpg');">
             <div class="back-overlay"></div>
             <div class="back-content">
-              <h3>Kettlebell Hierro 12kg</h3>
+              <h3>Set de barra con pesas 20kg</h3>
               <p class="detail-text">
-                • Estructura monobloque en hierro fundido sólido.<br>
-                • Base mecanizada plana para mayor estabilidad.<br>
-                • Textura de agarre suave que previene la abrasión.<br>
-                • Peso exacto garantizado para entrenamiento funcional.
+                • Set completo de barra con discos de 20kg.<br>
+                • Barra resistente con acabado cromado.<br>
+                • Discos de caucho para proteger el piso.<br>
+                • Ideal para entrenamientos de fuerza en casa.<br>
+                • Incluye barra, discos y seguros de cierre.
               </p>
-              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Kettlebell" target="_blank" class="btn-whatsapp-card">
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Set%20de%20barra%20con%20pesas%2020kg" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 4 - Elíptica -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MÁQUINA</div>
+            <div class="product-img">
+              <img src="imagenes/eliptica.jpg" alt="Elíptica Body Power 5 en 1">
+            </div>
+            <div class="product-info">
+              <h3>Elíptica Body Power 5 en 1</h3>
+              <div class="price-row">
+                <span class="price">S/ 1,600.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/eliptica.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Elíptica Body Power 5 en 1</h3>
+              <p class="detail-text">
+                • Entrenamiento cardiovascular completo.<br>
+                • Sistema de resistencia ajustable.<br>
+                • Diseño 5 en 1 para diferentes ejercicios.<br>
+                • Ideal para entrenamientos en casa.<br>
+                • Diseño compacto y funcional.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Eliptica%20Body%20Power%205%20en%201" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 5 - Accesorios de Poleas -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/accesorios-poleas.jpg" alt="Accesorios de Poleas">
+            </div>
+            <div class="product-info">
+              <h3>Accesorios de Poleas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 45.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/accesorios-poleas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Accesorios de Poleas</h3>
+              <p class="detail-text">
+                • Diferentes accesorios para máquinas de poleas.<br>
+                • Variedad de modelos y tipos de agarre.<br>
+                • Ideales para entrenamientos de espalda, brazos y hombros.<br>
+                • Fabricados con materiales resistentes y funcionales.<br>
+                • Precios según el modelo y tipo de accesorio.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Accesorios%20de%20Poleas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 6 - Maleta de Acople -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/maleta-acople.jpg" alt="Maleta de Acople">
+            </div>
+            <div class="product-info">
+              <h3>Maleta de Acople</h3>
+              <div class="price-row">
+                <span class="price">
+                  20 kg: S/ 165.00<br>
+                  30 kg: S/ 245.00<br>
+                  50 kg: S/ 520.00
+                </span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/maleta-acople.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Maleta de Acople</h3>
+              <p class="detail-text">
+                • Accesorio ideal para entrenamientos de fuerza.<br>
+                • Permite trabajar diferentes grupos musculares.<br>
+                • Disponible en diferentes capacidades de peso.<br>
+                • Diseño resistente y funcional.<br>
+                • Ideal para complementar máquinas de poleas y entrenamiento funcional.<br><br>
+                <strong>Precios disponibles:</strong><br>
+                • 20 kg: S/ 165.00<br>
+                • 30 kg: S/ 245.00<br>
+                • 50 kg: S/ 520.00
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Maleta%20de%20Acople" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 7 - Barras Estándar -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">BARRA</div>
+            <div class="product-img">
+              <img src="imagenes/barras-standar.jpg" alt="Barras Estándar">
+            </div>
+            <div class="product-info">
+              <h3>Barras Estándar</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 55.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/barras-standar.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Barras Estándar</h3>
+              <p class="detail-text">
+                • Barras ideales para entrenamientos de fuerza.<br>
+                • Disponibles en diferentes modelos y medidas.<br>
+                • Compatibles con discos estándar.<br>
+                • Diseño resistente y funcional.<br>
+                • Ideales para ejercicios de brazos, pecho, espalda y piernas.<br>
+                • Precio según el modelo y medida de la barra.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20las%20Barras%20Estandar" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 8 - Discos de Caucho -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">DISCOS</div>
+            <div class="product-img">
+              <img src="imagenes/discos-caucho.jpg" alt="Discos de Caucho">
+            </div>
+            <div class="product-info">
+              <h3>Discos de Caucho</h3>
+              <div class="price-row">
+                <span class="price">S/ 9.00 por kg</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/discos-caucho.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Discos de Caucho</h3>
+              <p class="detail-text">
+                • Discos de caucho ideales para entrenamientos de fuerza.<br>
+                • Precio: S/ 9.00 por kilogramo.<br>
+                • Compatibles con barras estándar.<br>
+                • Recubrimiento de caucho para ayudar a proteger el piso.<br>
+                • Ideales para ejercicios de pecho, espalda, brazos y piernas.<br>
+                • Disponible en diferentes pesos.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Discos%20de%20Caucho" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 9 - Barras Olímpicas -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">OLÍMPICA</div>
+            <div class="product-img">
+              <img src="imagenes/barras-olimpicas.jpg" alt="Barras Olímpicas">
+            </div>
+            <div class="product-info">
+              <h3>Barras Olímpicas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 95.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/barras-olimpicas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Barras Olímpicas</h3>
+              <p class="detail-text">
+                • Barras ideales para levantamiento de pesas y entrenamiento de fuerza.<br>
+                • Compatibles con discos olímpicos.<br>
+                • Disponibles en diferentes modelos y medidas.<br>
+                • Diseño resistente para entrenamientos exigentes.<br>
+                • Ideales para ejercicios de pecho, espalda, piernas y hombros.<br>
+                • Precio según el modelo y medida de la barra.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20las%20Barras%20Olimpicas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 10 - Tatamis -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/tatamis.jpg" alt="Tatamis para entrenamiento">
+            </div>
+            <div class="product-info">
+              <h3>Tatamis</h3>
+              <div class="price-row">
+                <span class="price">S/ 45.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/tatamis.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Tatamis</h3>
+              <p class="detail-text">
+                • Superficie ideal para entrenamientos y ejercicios en el suelo.<br>
+                • Ayudan a proteger el piso durante el entrenamiento.<br>
+                • Ideales para artes marciales, calistenia, yoga y funcional.<br>
+                • Diseño práctico para armar diferentes espacios de entrenamiento.<br>
+                • Fáciles de colocar, retirar y transportar.<br>
+                • Precio: S/ 45.00.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Tatamis" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 11 - Bosu -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/bosu.jpg" alt="Bosu de entrenamiento">
+            </div>
+            <div class="product-info">
+              <h3>Bosu</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 145.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/bosu.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Bosu</h3>
+              <p class="detail-text">
+                • Ideal para mejorar el equilibrio y la estabilidad.<br>
+                • Permite realizar ejercicios de fuerza y entrenamiento funcional.<br>
+                • Ideal para trabajar abdomen, piernas y tren superior.<br>
+                • Excelente complemento para rutinas de acondicionamiento físico.<br>
+                • Diseño práctico y funcional para diferentes ejercicios.<br>
+                • Precio desde S/ 145.00.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20el%20Bosu" target="_blank" class="btn-whatsapp-card">
                 <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
               </a>
             </div>
@@ -600,21 +771,184 @@
     </div>
   </section>
 
+  <!-- Sección Nosotros -->
+  <section id="nosotros" class="nosotros-section">
+    <div class="nosotros-grid">
+      <div class="nosotros-text">
+        <h2>SOBRE <span>RAY FITNESS</span></h2>
+        <p>Somos una tienda peruana especializada en equipamiento fitness de calidad. Nació de la pasión por el entrenamiento y la necesidad de ofrecer productos confiables a precios justos para todos los atletas del Perú.</p>
+        <p>Desde mancuernas hasta máquinas completas, seleccionamos cada producto pensando en tu rendimiento y seguridad. Creemos que todo mundo merece tener acceso a herramientas de calidad para transformar su cuerpo y su vida.</p>
+        <div class="nosotros-stats">
+          <div class="stat-box">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Clientes satisfechos</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Productos disponibles</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Compromiso peruano</div>
+          </div>
+        </div>
+        <div class="nosotros-values">
+          <span class="value-tag"><i class="fa-solid fa-shield-halved"></i> Calidad garantizada</span>
+          <span class="value-tag"><i class="fa-solid fa-truck-fast"></i> Envíos a todo el Perú</span>
+          <span class="value-tag"><i class="fa-solid fa-headset"></i> Soporte personalizado</span>
+          <span class="value-tag"><i class="fa-solid fa-hand-holding-heart"></i> Precio justo</span>
+        </div>
+      </div>
+      <div class="nosotros-image">
+        <img src="imagenes/nosotros.jpg" alt="RAY Fitness - Equipamiento fitness en Perú">
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Testimonios -->
+  <section id="testimonios" class="testimonios-section">
+    <h2 class="section-title">LO QUE DICEN NUESTROS <span>CLIENTES</span></h2>
+    <p class="testimonios-subtitle">La confianza de nuestros clientes es nuestra mejor carta de presentación.</p>
+    <div class="testimonios-grid">
+      <div class="testimonio-card">
+        <div class="testimonio-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testimonio-text">"Excelente calidad en las mancuernas, llegaron rápido y en perfectas condiciones. Totalmente recomendado para armar tu gym en casa."</p>
+        <div class="testimonio-author">
+          <div class="testimonio-avatar">C</div>
+          <div>
+            <div class="testimonio-name">Carlos M.</div>
+            <div class="testimonio-role">Cliente - Lima</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card">
+        <div class="testimonio-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testimonio-text">"Compré la elíptica y quedó increíble. El equipo de RAY Fitness fue súper atento respondiendo todas mis dudas por WhatsApp."</p>
+        <div class="testimonio-author">
+          <div class="testimonio-avatar">M</div>
+          <div>
+            <div class="testimonio-name">María G.</div>
+            <div class="testimonio-role">Cliente - Arequipa</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card">
+        <div class="testimonio-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <p class="testimonio-text">"Los discos de caucho tienen un peso exacto y el recubrimiento es de muy buena calidad. El envío a Piura llegó sin problema. Volveré a comprar."</p>
+        <div class="testimonio-author">
+          <div class="testimonio-avatar">R</div>
+          <div>
+            <div class="testimonio-name">Roberto S.</div>
+            <div class="testimonio-role">Cliente - Piura</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Botón Flotante de WhatsApp -->
   <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20sus%20productos%20fitness" class="whatsapp-btn" target="_blank" aria-label="Contactar por WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
+  <!-- Botón Scroll to Top -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Volver arriba">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
   <!-- Pie de Página -->
-  <footer id="nosotros">
-    <div class="footer-container">
-      <div class="quote-box">
-        <i class="fa-solid fa-quote-left quote-icon"></i>
-        <p class="quote-text">"El dolor que sientes hoy es la fuerza que sentirás mañana. Transforma tus metas en disciplina."</p>
+  <footer id="contacto" class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">RAY<span> FITNESS</span></div>
+        <p>Especialistas en equipamiento fitness de calidad en Perú. Lleva tu entrenamiento al siguiente nivel con productos confiables y servicio personalizado.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/51904776365" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
       </div>
-      <p class="copyright">&copy; 2026 RAY Fitness - Todos los derechos reservados.</p>
+      <div class="footer-col">
+        <h4>Productos</h4>
+        <a href="#productos">Mancuernas</a>
+        <a href="#productos">Barras y Discos</a>
+        <a href="#productos">Máquinas</a>
+        <a href="#productos">Accesorios</a>
+      </div>
+      <div class="footer-col">
+        <h4>Información</h4>
+        <a href="#nosotros">Sobre Nosotros</a>
+        <a href="#testimonios">Opiniones</a>
+        <a href="#">Envíos y Delivery</a>
+        <a href="#">Política de Devoluciones</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="https://wa.me/51904776365" target="_blank"><i class="fa-brands fa-whatsapp"></i> +51 904 776 365</a>
+        <a href="#"><i class="fa-solid fa-location-dot"></i> Lima, Perú</a>
+        <a href="#"><i class="fa-solid fa-clock"></i> Lun - Sáb: 9am - 7pm</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-quote">"El dolor que sientes hoy es la fuerza que sentirás mañana. Transforma tus metas en disciplina."</p>
+      <p class="footer-copyright">&copy; 2026 RAY Fitness - Todos los derechos reservados.</p>
     </div>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll reveal animation
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.flip-card, .testimonio-card, .nosotros-text, .nosotros-image').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
 
 </body>
 </html>
