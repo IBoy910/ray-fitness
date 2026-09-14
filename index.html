@@ -86,6 +86,43 @@
     .scroll-top-btn.visible { display: flex; }
     .scroll-top-btn:hover { transform: scale(1.1); }
 
+    /* === Category Section Divider === */
+    .category-section-divider {
+      width: 100%;
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0 0.5rem 0;
+      padding-top: 1rem;
+    }
+    .category-section-divider .divider-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e63946, transparent);
+      border-radius: 2px;
+    }
+    .category-section-divider .divider-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(230,57,70,0.15);
+      border: 1px solid rgba(230,57,70,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e63946;
+      font-size: 0.95rem;
+    }
+    .category-section-divider .divider-label {
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
     /* === Nosotros Section === */
     .nosotros-section {
       padding: 80px 5%;
@@ -298,6 +335,7 @@
       margin-bottom: 0.6rem;
       text-decoration: none;
       transition: color 0.3s ease;
+      cursor: pointer;
     }
     .footer-col a:hover { color: #e63946; }
     .footer-bottom {
@@ -364,13 +402,21 @@
   <section id="productos" class="products-section">
     <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
     <div class="categories">
-      <button class="category-btn active" data-category="todos">Todos</button>
-      <button class="category-btn" data-category="mancuernas">Mancuernas</button>
-      <button class="category-btn" data-category="barras">Barras y Discos</button>
-      <button class="category-btn" data-category="maquinas">Máquinas</button>
-      <button class="category-btn" data-category="accesorios">Accesorios</button>
+      <button class="category-btn active" data-category="todos" onclick="filterCategory('todos', this)">Todos</button>
+      <button class="category-btn" data-category="mancuernas" onclick="filterCategory('mancuernas', this)">Mancuernas</button>
+      <button class="category-btn" data-category="barras" onclick="filterCategory('barras', this)">Barras y Discos</button>
+      <button class="category-btn" data-category="maquinas" onclick="filterCategory('maquinas', this)">Máquinas</button>
+      <button class="category-btn" data-category="accesorios" onclick="filterCategory('accesorios', this)">Accesorios</button>
     </div>
     <div class="products-grid">
+
+      <!-- ═══════════════ DIVIDER: MANCUERNAS ═══════════════ -->
+      <div class="category-section-divider" id="cat-mancuernas">
+        <div class="divider-line"></div>
+        <div class="divider-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="divider-label">Mancuernas</div>
+        <div class="divider-line"></div>
+      </div>
 
       <!-- Producto 1 - Mancuernas Hexagonales -->
       <div class="flip-card" data-category="mancuernas">
@@ -406,38 +452,187 @@
         </div>
       </div>
 
-      <!-- Producto 2 - Bandas de Resistencia -->
-      <div class="flip-card" data-category="accesorios">
+      <!-- Producto 12 - Mancuernas de Vinil -->
+      <div class="flip-card" data-category="mancuernas">
         <div class="flip-card-inner">
           <div class="flip-card-front">
-            <div class="card-tag">ACCESORIO</div>
+            <div class="card-tag">MANCUERNA</div>
             <div class="product-img">
-              <img src="imagenes/bandas.jpg" alt="Bandas de Resistencia">
+              <img src="imagenes/mancuernas-vinil.jpg" alt="Mancuernas de Vinil">
             </div>
             <div class="product-info">
-              <h3>Bandas de Resistencia Elásticas</h3>
+              <h3>Mancuernas de Vinil</h3>
               <div class="price-row">
-                <span class="price">S/ 65.00</span>
+                <span class="price">Desde S/ 25.00</span>
                 <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
               </div>
             </div>
           </div>
-          <div class="flip-card-back" style="--bg-image: url('imagenes/bandas.jpg');">
+          <div class="flip-card-back" style="--bg-image: url('imagenes/mancuernas-vinil.jpg');">
             <div class="back-overlay"></div>
             <div class="back-content">
-              <h3>Bandas de Resistencia Elásticas</h3>
+              <h3>Mancuernas de Vinil</h3>
               <p class="detail-text">
-                • Kit completo con 5 niveles de resistencia graduados.<br>
-                • Fabricadas en látex 100% natural ultra resistente.<br>
-                • Incluye estuche de transporte impermeable.<br>
-                • Ideal para calistenia, gym, yoga y rehabilitación.
+                • Recubrimiento en vinil colorido y duradero.<br>
+                • No marcan el piso ni los muebles.<br>
+                • Disponibles en diferentes pesos (1kg - 10kg).<br>
+                • Ideales para principiantes y rutinas ligeras.<br>
+                • Precio según el peso seleccionado.
               </p>
-              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20las%20Bandas%20de%20Resistencia" target="_blank" class="btn-whatsapp-card">
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Mancuernas%20de%20Vinil" target="_blank" class="btn-whatsapp-card">
                 <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
               </a>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Producto 13 - Pesas Rusas Cromadas -->
+      <div class="flip-card" data-category="mancuernas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">PREMIUM</div>
+            <div class="product-img">
+              <img src="imagenes/pesas-rusas-cromadas.jpg" alt="Pesas Rusas Cromadas">
+            </div>
+            <div class="product-info">
+              <h3>Pesas Rusas Cromadas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 35.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/pesas-rusas-cromadas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Pesas Rusas Cromadas</h3>
+              <p class="detail-text">
+                • Acabado cromado brillante de alta calidad.<br>
+                • Forma de kettlebell para ejercicios funcionales.<br>
+                • Disponibles en diferentes pesos (4kg - 24kg).<br>
+                • Agarre ergonómico para un grip seguro.<br>
+                • Ideales para crossfit, funcional y fuerza.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Pesas%20Rusas%20Cromadas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 14 - Pesas Rusas PVC -->
+      <div class="flip-card" data-category="mancuernas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">FUNCIONAL</div>
+            <div class="product-img">
+              <img src="imagenes/pesas-rusas-pvc.jpg" alt="Pesas Rusas PVC">
+            </div>
+            <div class="product-info">
+              <h3>Pesas Rusas PVC</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 22.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/pesas-rusas-pvc.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Pesas Rusas PVC</h3>
+              <p class="detail-text">
+                • Recubrimiento en PVC suave y resistente.<br>
+                • No dañan el piso al apoyarlas.<br>
+                • Disponibles en diferentes pesos y colores.<br>
+                • Perfectas para principiantes y rutinas en casa.<br>
+                • Excelente relación calidad-precio.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Pesas%20Rusas%20PVC" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 15 - Rack para Mancuernas -->
+      <div class="flip-card" data-category="mancuernas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ORGANIZADOR</div>
+            <div class="product-img">
+              <img src="imagenes/rack-mancuernas.jpg" alt="Rack para Mancuernas">
+            </div>
+            <div class="product-info">
+              <h3>Rack para Mancuernas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 250.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/rack-mancuernas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Rack para Mancuernas</h3>
+              <p class="detail-text">
+                • Estructura de acero resistente y duradera.<br>
+                • Almacena hasta 10 pares de mancuernas.<br>
+                • Diseño compacto para optimizar espacio.<br>
+                • Acabado en pintura anti-corrosión.<br>
+                • Mantiene tu gym organizado y profesional.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Rack%20para%20Mancuernas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 16 - Manubrios -->
+      <div class="flip-card" data-category="mancuernas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MANCUERNA</div>
+            <div class="product-img">
+              <img src="imagenes/manubrios.jpg" alt="Manubrios Ajustables">
+            </div>
+            <div class="product-info">
+              <h3>Manubrios</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 35.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/manubrios.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Manubrios</h3>
+              <p class="detail-text">
+                • Manubrios de diferente peso y tamaño.<br>
+                • Recubrimiento en goma o vinil según modelo.<br>
+                • Disponibles individualmente o en set.<br>
+                • Ideales para ejercicios de brazos, hombros y espalda.<br>
+                • Precio según peso y modelo.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Manubrios" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ DIVIDER: BARRAS Y DISCOS ═══════════════ -->
+      <div class="category-section-divider" id="cat-barras">
+        <div class="divider-line"></div>
+        <div class="divider-icon"><i class="fa-solid fa-bars"></i></div>
+        <div class="divider-label">Barras y Discos</div>
+        <div class="divider-line"></div>
       </div>
 
       <!-- Producto 3 - Set de barra con pesas 20kg -->
@@ -469,119 +664,6 @@
               </p>
               <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Set%20de%20barra%20con%20pesas%2020kg" target="_blank" class="btn-whatsapp-card">
                 <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Producto 4 - Elíptica -->
-      <div class="flip-card" data-category="maquinas">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div class="card-tag">MÁQUINA</div>
-            <div class="product-img">
-              <img src="imagenes/eliptica.jpg" alt="Elíptica Body Power 5 en 1">
-            </div>
-            <div class="product-info">
-              <h3>Elíptica Body Power 5 en 1</h3>
-              <div class="price-row">
-                <span class="price">S/ 1,600.00</span>
-                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card-back" style="--bg-image: url('imagenes/eliptica.jpg');">
-            <div class="back-overlay"></div>
-            <div class="back-content">
-              <h3>Elíptica Body Power 5 en 1</h3>
-              <p class="detail-text">
-                • Entrenamiento cardiovascular completo.<br>
-                • Sistema de resistencia ajustable.<br>
-                • Diseño 5 en 1 para diferentes ejercicios.<br>
-                • Ideal para entrenamientos en casa.<br>
-                • Diseño compacto y funcional.
-              </p>
-              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Eliptica%20Body%20Power%205%20en%201" target="_blank" class="btn-whatsapp-card">
-                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Producto 5 - Accesorios de Poleas -->
-      <div class="flip-card" data-category="accesorios">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div class="card-tag">ACCESORIO</div>
-            <div class="product-img">
-              <img src="imagenes/accesorios-poleas.jpg" alt="Accesorios de Poleas">
-            </div>
-            <div class="product-info">
-              <h3>Accesorios de Poleas</h3>
-              <div class="price-row">
-                <span class="price">Desde S/ 45.00</span>
-                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card-back" style="--bg-image: url('imagenes/accesorios-poleas.jpg');">
-            <div class="back-overlay"></div>
-            <div class="back-content">
-              <h3>Accesorios de Poleas</h3>
-              <p class="detail-text">
-                • Diferentes accesorios para máquinas de poleas.<br>
-                • Variedad de modelos y tipos de agarre.<br>
-                • Ideales para entrenamientos de espalda, brazos y hombros.<br>
-                • Fabricados con materiales resistentes y funcionales.<br>
-                • Precios según el modelo y tipo de accesorio.
-              </p>
-              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Accesorios%20de%20Poleas" target="_blank" class="btn-whatsapp-card">
-                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Producto 6 - Maleta de Acople -->
-      <div class="flip-card" data-category="accesorios">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div class="card-tag">ACCESORIO</div>
-            <div class="product-img">
-              <img src="imagenes/maleta-acople.jpg" alt="Maleta de Acople">
-            </div>
-            <div class="product-info">
-              <h3>Maleta de Acople</h3>
-              <div class="price-row">
-                <span class="price">
-                  20 kg: S/ 165.00<br>
-                  30 kg: S/ 245.00<br>
-                  50 kg: S/ 520.00
-                </span>
-                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card-back" style="--bg-image: url('imagenes/maleta-acople.jpg');">
-            <div class="back-overlay"></div>
-            <div class="back-content">
-              <h3>Maleta de Acople</h3>
-              <p class="detail-text">
-                • Accesorio ideal para entrenamientos de fuerza.<br>
-                • Permite trabajar diferentes grupos musculares.<br>
-                • Disponible en diferentes capacidades de peso.<br>
-                • Diseño resistente y funcional.<br>
-                • Ideal para complementar máquinas de poleas y entrenamiento funcional.<br><br>
-                <strong>Precios disponibles:</strong><br>
-                • 20 kg: S/ 165.00<br>
-                • 30 kg: S/ 245.00<br>
-                • 50 kg: S/ 520.00
-              </p>
-              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Maleta%20de%20Acople" target="_blank" class="btn-whatsapp-card">
-                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
               </a>
             </div>
           </div>
@@ -696,6 +778,556 @@
         </div>
       </div>
 
+      <!-- Producto 17 - Discos de Fierro -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">DISCOS</div>
+            <div class="product-img">
+              <img src="imagenes/discos-fierro.jpg" alt="Discos de Fierro">
+            </div>
+            <div class="product-info">
+              <h3>Discos de Fierro</h3>
+              <div class="price-row">
+                <span class="price">S/ 7.00 por kg</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/discos-fierro.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Discos de Fierro</h3>
+              <p class="detail-text">
+                • Discos de fierro macizo, resistentes y duraderos.<br>
+                • Precio: S/ 7.00 por kilogramo.<br>
+                • Compatibles con barras estándar y olímpicas.<br>
+                • Acabado en pintura anti-corrosión.<br>
+                • Disponibles en diferentes pesos (1kg - 25kg).<br>
+                • La opción más económica para tu gym.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Discos%20de%20Fierro" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 18 - Rueda ABS -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ABDOMEN</div>
+            <div class="product-img">
+              <img src="imagenes/rueda-abs.jpg" alt="Rueda ABS">
+            </div>
+            <div class="product-info">
+              <h3>Rueda ABS</h3>
+              <div class="price-row">
+                <span class="price">S/ 35.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/rueda-abs.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Rueda ABS</h3>
+              <p class="detail-text">
+                • Rueda para abdominales con grip cómodo.<br>
+                • Fortalece el core, hombros y brazos.<br>
+                • Diseño estable con rueda ancha antideslizante.<br>
+                • Ideal para entrenamientos en casa o gym.<br>
+                • Material resistente y liviano.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Rueda%20ABS" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 19 - Tablero Push Up -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">PECHO</div>
+            <div class="product-img">
+              <img src="imagenes/tablero-push-up.jpg" alt="Tablero Push Up">
+            </div>
+            <div class="product-info">
+              <h3>Tablero Push Up</h3>
+              <div class="price-row">
+                <span class="price">S/ 45.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/tablero-push-up.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Tablero Push Up</h3>
+              <p class="detail-text">
+                • Tablero con múltiples posiciones de agarre.<br>
+                • Trabaja pecho, hombros, tríceps y espalda.<br>
+                • Código de colores para cada grupo muscular.<br>
+                • Incluye 2 manijas ergonómicas antideslizantes.<br>
+                • Compacto y fácil de transportar.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Tablero%20Push%20Up" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 26 - Barra Z -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">BARRA Z</div>
+            <div class="product-img">
+              <img src="imagenes/barra-z.jpg" alt="Barra Z para bíceps">
+            </div>
+            <div class="product-info">
+              <h3>Barra Z</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 65.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/barra-z.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Barra Z</h3>
+              <p class="detail-text">
+                • Barra en forma de Z para ejercicios de bíceps y tríceps.<br>
+                • Agarre ergonómico que reduce la tensión en muñecas.<br>
+                • Compatible con discos estándar.<br>
+                • Acabado cromado resistente.<br>
+                • Ideal para curl de bíceps y press francés.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Barra%20Z" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 27 - Seguros para Barras -->
+      <div class="flip-card" data-category="barras">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">SEGURIDAD</div>
+            <div class="product-img">
+              <img src="imagenes/seguros-barras.jpg" alt="Seguros para Barras">
+            </div>
+            <div class="product-info">
+              <h3>Seguros para Barras</h3>
+              <div class="price-row">
+                <span class="price">S/ 20.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/seguros-barras.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Seguros para Barras</h3>
+              <p class="detail-text">
+                • Collares de cierre rápido para barras estándar y olímpicas.<br>
+                • Evitan que los discos se deslicen durante el ejercicio.<br>
+                • Mecanismo de ajuste por resorte o tornillo.<br>
+                • Par de seguros incluido.<br>
+                • Compatible con barras de 25mm y 50mm.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Seguros%20para%20Barras" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ DIVIDER: MÁQUINAS ═══════════════ -->
+      <div class="category-section-divider" id="cat-maquinas">
+        <div class="divider-line"></div>
+        <div class="divider-icon"><i class="fa-solid fa-gears"></i></div>
+        <div class="divider-label">Máquinas</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- Producto 4 - Elíptica -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MÁQUINA</div>
+            <div class="product-img">
+              <img src="imagenes/eliptica.jpg" alt="Elíptica Body Power 5 en 1">
+            </div>
+            <div class="product-info">
+              <h3>Elíptica Body Power 5 en 1</h3>
+              <div class="price-row">
+                <span class="price">S/ 1,600.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/eliptica.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Elíptica Body Power 5 en 1</h3>
+              <p class="detail-text">
+                • Entrenamiento cardiovascular completo.<br>
+                • Sistema de resistencia ajustable.<br>
+                • Diseño 5 en 1 para diferentes ejercicios.<br>
+                • Ideal para entrenamientos en casa.<br>
+                • Diseño compacto y funcional.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Eliptica%20Body%20Power%205%20en%201" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 20 - Rack de Sentadillas -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MÁQUINA</div>
+            <div class="product-img">
+              <img src="imagenes/rack-sentadillas.jpg" alt="Rack de Sentadillas">
+            </div>
+            <div class="product-info">
+              <h3>Rack de Sentadillas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 450.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/rack-sentadillas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Rack de Sentadillas</h3>
+              <p class="detail-text">
+                • Estructura de acero pesado ultra resistente.<br>
+                • Soportes ajustables en altura para sentadillas y press.<br>
+                • Incluye seguros de seguridad laterales.<br>
+                • Compatible con barras olímpicas y estándar.<br>
+                • Ideal para gym en casa o comercial.<br>
+                • Precio según modelo y accesorios.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Rack%20de%20Sentadillas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 21 - Step -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">CARDIO</div>
+            <div class="product-img">
+              <img src="imagenes/step.jpg" alt="Step de entrenamiento">
+            </div>
+            <div class="product-info">
+              <h3>Step</h3>
+              <div class="price-row">
+                <span class="price">S/ 85.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/step.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Step</h3>
+              <p class="detail-text">
+                • Plataforma ajustable en 3 alturas.<br>
+                • Superficie antideslizante con textura.<br>
+                • Ideal para cardio, step aeróbico y funcional.<br>
+                • Soporta hasta 200kg.<br>
+                • Compacto y liviano para guardar fácilmente.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Step" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 28 - Banco Ajustable -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MÁQUINA</div>
+            <div class="product-img">
+              <img src="imagenes/banco-ajustable.jpg" alt="Banco Ajustable">
+            </div>
+            <div class="product-info">
+              <h3>Banco Ajustable</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 380.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/banco-ajustable.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Banco Ajustable</h3>
+              <p class="detail-text">
+                • Banco multifunción con 7 posiciones de inclinación.<br>
+                • Plano, inclinado, declinado y militar.<br>
+                • Estructura de acero con patas antideslizantes.<br>
+                • Tapizado en cuero sintético de alta resistencia.<br>
+                • Soporta hasta 300kg de carga.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Banco%20Ajustable" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 29 - Máquina de Poleas -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MÁQUINA</div>
+            <div class="product-img">
+              <img src="imagenes/maquina-poleas.jpg" alt="Máquina de Poleas">
+            </div>
+            <div class="product-info">
+              <h3>Máquina de Poleas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 850.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/maquina-poleas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Máquina de Poleas</h3>
+              <p class="detail-text">
+                • Sistema de polea alta y baja para múltiples ejercicios.<br>
+                • Torre de poleas con cable de acero reforzado.<br>
+                • Ideal para espalda, hombros, pecho y brazos.<br>
+                • Estructura estable con base ancha.<br>
+                • Compatible con discos estándar y olímpicos.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Maquina%20de%20Poleas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 30 - Bicicleta Estática -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">CARDIO</div>
+            <div class="product-img">
+              <img src="imagenes/bicicleta-estatica.jpg" alt="Bicicleta Estática">
+            </div>
+            <div class="product-info">
+              <h3>Bicicleta Estática</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 550.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/bicicleta-estatica.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Bicicleta Estática</h3>
+              <p class="detail-text">
+                • Bicicleta estática con resistencia magnética.<br>
+                • Monitor LCD con velocidad, distancia y calorías.<br>
+                • Asiento ajustable en altura y posición.<br>
+                • Pedales con correas de seguridad.<br>
+                • Ideal para cardio suave y rehabilitación.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Bicicleta%20Estatica" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 31 - Cinta de Correr -->
+      <div class="flip-card" data-category="maquinas">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MÁQUINA</div>
+            <div class="product-img">
+              <img src="imagenes/cinta-correr.jpg" alt="Cinta de Correr">
+            </div>
+            <div class="product-info">
+              <h3>Cinta de Correr</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 1,200.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/cinta-correr.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Cinta de Correr</h3>
+              <p class="detail-text">
+                • Cinta plegable para fácil almacenamiento.<br>
+                • Velocidad ajustable de 1 a 12 km/h.<br>
+                • Monitor LCD con funciones multitarea.<br>
+                • Sistema de amortiguación para proteger articulaciones.<br>
+                • Ideal para cardio en casa, plegable y compacta.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Cinta%20de%20Correr" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ DIVIDER: ACCESORIOS ═══════════════ -->
+      <div class="category-section-divider" id="cat-accesorios">
+        <div class="divider-line"></div>
+        <div class="divider-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="divider-label">Accesorios</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- Producto 2 - Bandas de Resistencia -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/bandas.jpg" alt="Bandas de Resistencia">
+            </div>
+            <div class="product-info">
+              <h3>Bandas de Resistencia Elásticas</h3>
+              <div class="price-row">
+                <span class="price">S/ 65.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/bandas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Bandas de Resistencia Elásticas</h3>
+              <p class="detail-text">
+                • Kit completo con 5 niveles de resistencia graduados.<br>
+                • Fabricadas en látex 100% natural ultra resistente.<br>
+                • Incluye estuche de transporte impermeable.<br>
+                • Ideal para calistenia, gym, yoga y rehabilitación.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20las%20Bandas%20de%20Resistencia" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 5 - Accesorios de Poleas -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/accesorios-poleas.jpg" alt="Accesorios de Poleas">
+            </div>
+            <div class="product-info">
+              <h3>Accesorios de Poleas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 45.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/accesorios-poleas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Accesorios de Poleas</h3>
+              <p class="detail-text">
+                • Diferentes accesorios para máquinas de poleas.<br>
+                • Variedad de modelos y tipos de agarre.<br>
+                • Ideales para entrenamientos de espalda, brazos y hombros.<br>
+                • Fabricados con materiales resistentes y funcionales.<br>
+                • Precios según el modelo y tipo de accesorio.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20los%20Accesorios%20de%20Poleas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 6 - Maleta de Acople -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/maleta-acople.jpg" alt="Maleta de Acople">
+            </div>
+            <div class="product-info">
+              <h3>Maleta de Acople</h3>
+              <div class="price-row">
+                <span class="price">
+                  20 kg: S/ 165.00<br>
+                  30 kg: S/ 245.00<br>
+                  50 kg: S/ 520.00
+                </span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/maleta-acople.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Maleta de Acople</h3>
+              <p class="detail-text">
+                • Accesorio ideal para entrenamientos de fuerza.<br>
+                • Permite trabajar diferentes grupos musculares.<br>
+                • Disponible en diferentes capacidades de peso.<br>
+                • Diseño resistente y funcional.<br>
+                • Ideal para complementar máquinas de poleas y entrenamiento funcional.<br><br>
+                <strong>Precios disponibles:</strong><br>
+                • 20 kg: S/ 165.00<br>
+                • 30 kg: S/ 245.00<br>
+                • 50 kg: S/ 520.00
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Maleta%20de%20Acople" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Producto 10 - Tatamis -->
       <div class="flip-card" data-category="accesorios">
         <div class="flip-card-inner">
@@ -768,330 +1400,603 @@
         </div>
       </div>
 
+      <!-- Producto 22 - Chaleco de Peso -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">FUNCIONAL</div>
+            <div class="product-img">
+              <img src="imagenes/chaleco-peso.jpg" alt="Chaleco de Peso">
+            </div>
+            <div class="product-info">
+              <h3>Chaleco de Peso</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 120.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/chaleco-peso.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Chaleco de Peso</h3>
+              <p class="detail-text">
+                • Chaleco con bolsillos para añadir o quitar peso.<br>
+                • Disponible en 10kg, 15kg y 20kg.<br>
+                • Ajustable al cuerpo con correas de velcro.<br>
+                • Ideal para dominadas, flexiones, cardio y funcional.<br>
+                • Aumenta la intensidad de cualquier rutina.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Chaleco%20de%20Peso" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 23 - Tobilleras de Peso -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">ACCESORIO</div>
+            <div class="product-img">
+              <img src="imagenes/tobilleras.jpg" alt="Tobilleras de Peso">
+            </div>
+            <div class="product-info">
+              <h3>Tobilleras de Peso</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 30.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/tobilleras.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Tobilleras de Peso</h3>
+              <p class="detail-text">
+                • Tobilleras con peso integrado para piernas y glúteos.<br>
+                • Disponibles en 1kg, 2kg y 3kg por par.<br>
+                • Cierre de velcro ajustable y cómodo.<br>
+                • Recubrimiento suave que no irrita la piel.<br>
+                • Ideales para caminata, aeróbicos y rehabilitación.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Tobilleras%20de%20Peso" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 24 - Correas de Levantamiento -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">SEGURIDAD</div>
+            <div class="product-img">
+              <img src="imagenes/correas.jpg" alt="Correas de Levantamiento">
+            </div>
+            <div class="product-info">
+              <h3>Correas de Levantamiento</h3>
+              <div class="price-row">
+                <span class="price">S/ 35.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/correas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Correas de Levantamiento</h3>
+              <p class="detail-text">
+                • Correas de algodón resistente para mejorar el grip.<br>
+                • Ideales para peso muerto, remos y jalones.<br>
+                • Evitan que la barra se resbale de las manos.<br>
+                • Ajustables y cómodas para cualquier muñeca.<br>
+                • Un par incluido.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20las%20Correas%20de%20Levantamiento" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 25 - Ligas de Resistencia -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">RESISTENCIA</div>
+            <div class="product-img">
+              <img src="imagenes/ligas-resistencia.jpg" alt="Ligas de Resistencia">
+            </div>
+            <div class="product-info">
+              <h3>Ligas de Resistencia</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 15.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/ligas-resistencia.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Ligas de Resistencia</h3>
+              <p class="detail-text">
+                • Ligas de látex en diferentes niveles de tensión.<br>
+                • Ideales para calentamiento, movilidad y rehab.<br>
+                • Se pueden usar para glúteos, piernas y tren superior.<br>
+                • Incluyen manijas de puerta para más opciones.<br>
+                • Venta individual o en set de 3 ligas.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Ligas%20de%20Resistencia" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 32 - Grip Pad -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">GRIP</div>
+            <div class="product-img">
+              <img src="imagenes/grip-pad.jpg" alt="Grip Pad">
+            </div>
+            <div class="product-info">
+              <h3>Grip Pad</h3>
+              <div class="price-row">
+                <span class="price">S/ 35.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/grip-pad.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Grip Pad</h3>
+              <p class="detail-text">
+                • Agarre de silicona para barras y mancuernas.<br>
+                • Protege las manos de callos y ampollas.<br>
+                • Diseño ergonómico con cierre velcro.<br>
+                • Anti-deslizante incluso con sudor.<br>
+                • Par incluido, ideal para levantamiento pesado.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Grip%20Pad" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 33 - Rodillo de Masaje -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">RECUPERACIÓN</div>
+            <div class="product-img">
+              <img src="imagenes/rodillo-masaje.jpg" alt="Rodillo de Masaje">
+            </div>
+            <div class="product-info">
+              <h3>Rodillo de Masaje</h3>
+              <div class="price-row">
+                <span class="price">S/ 30.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/rodillo-masaje.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Rodillo de Masaje</h3>
+              <p class="detail-text">
+                • Foam roller de alta densidad para automasaje.<br>
+                • Libera tensión muscular y fascial.<br>
+                • Textura superficial para estimulación profunda.<br>
+                • Ideal para post-entrenamiento y recuperación.<br>
+                • Largo 45cm, resistente y duradero.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Rodillo%20de%20Masaje" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 34 - Cuerdas para Saltar -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">CARDIO</div>
+            <div class="product-img">
+              <img src="imagenes/cuerda-saltar.jpg" alt="Cuerdas para Saltar">
+            </div>
+            <div class="product-info">
+              <h3>Cuerdas para Saltar</h3>
+              <div class="price-row">
+                <span class="price">S/ 22.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/cuerda-saltar.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Cuerdas para Saltar</h3>
+              <p class="detail-text">
+                • Cuerda de velocidad con cable de acero revestido.<br>
+                • Mangos antideslizantes con rodamientos de bola.<br>
+                • Longitud ajustable según estatura.<br>
+                • Ideal para HIIT, CrossFit y cardio intenso.<br>
+                • Ultra ligera para doble salto y trucos.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Cuerdas%20para%20Saltar" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 35 - Muñequeras -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">SOPORTE</div>
+            <div class="product-img">
+              <img src="imagenes/munnequeras.jpg" alt="Muñequeras">
+            </div>
+            <div class="product-info">
+              <h3>Muñequeras</h3>
+              <div class="price-row">
+                <span class="price">S/ 25.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/munnequeras.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Muñequeras</h3>
+              <p class="detail-text">
+                • Soporte elástico para muñecas durante pesas pesadas.<br>
+                • Refuerzo de velcro ajustable para firmeza.<br>
+                • Neopreno transpirable y cómodo.<br>
+                • Par incluido, talle universal.<br>
+                • Previene lesiones en press y elevaciones.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Munequeras" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 36 - Soporte para Barra -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">SOPORTE</div>
+            <div class="product-img">
+              <img src="imagenes/soporte-barra.jpg" alt="Soporte para Barra">
+            </div>
+            <div class="product-info">
+              <h3>Soporte para Barra</h3>
+              <div class="price-row">
+                <span class="price">S/ 120.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/soporte-barra.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Soporte para Barra</h3>
+              <p class="detail-text">
+                • Par de soportes J-hook para rack de sentadillas.<br>
+                • Acero reforzado, soporta hasta 400kg.<br>
+                • Ajustable en altura para distintas posiciones.<br>
+                • Recubrimiento de goma para proteger la barra.<br>
+                • Compatible con racks estándar de 3"x3".
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Soporte%20para%20Barra" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 38 - Colchoneta de Ejercicio -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">PISO</div>
+            <div class="product-img">
+              <img src="imagenes/colchoneta.jpg" alt="Colchoneta de Ejercicio">
+            </div>
+            <div class="product-info">
+              <h3>Colchoneta de Ejercicio</h3>
+              <div class="price-row">
+                <span class="price">S/ 45.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/colchoneta.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Colchoneta de Ejercicio</h3>
+              <p class="detail-text">
+                • Colchoneta plegable de alta densidad 15mm.<br>
+                • Superficie anti-deslizante por ambos lados.<br>
+                • Ideal para estiramientos, yoga y suelo pélvico.<br>
+                • Incluye correa de transporte.<br>
+                • Material EVA ecológico, fácil de limpiar.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Colchoneta%20de%20Ejercicio" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 39 - Barras Paralelas -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">CALISTENIA</div>
+            <div class="product-img">
+              <img src="imagenes/barras-paralelas.jpg" alt="Barras Paralelas">
+            </div>
+            <div class="product-info">
+              <h3>Barras Paralelas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 180.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/barras-paralelas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Barras Paralelas</h3>
+              <p class="detail-text">
+                • Par de barras paralelas para dips y L-sit.<br>
+                • Estructura de acero con base estable.<br>
+                • Altura y ancho ajustables.<br>
+                • Recubrimiento de espuma en agarres.<br>
+                • Soporta hasta 150kg, ideal para calistenia.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20las%20Barras%20Paralelas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 40 - Cinturón de Peso -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">PESO EXTRA</div>
+            <div class="product-img">
+              <img src="imagenes/cinturon-peso.jpg" alt="Cinturón de Peso">
+            </div>
+            <div class="product-info">
+              <h3>Cinturón de Peso</h3>
+              <div class="price-row">
+                <span class="price">S/ 65.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/cinturon-peso.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Cinturón de Peso</h3>
+              <p class="detail-text">
+                • Cinturón para dominadas y dips con cadena.<br>
+                • Cuero sintético de alta resistencia.<br>
+                • Cadena de acero con cierre rápido.<br>
+                • Soporta discos de hasta 50kg adicionales.<br>
+                • Ideal para progresión en calistenia.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20el%20Cinturon%20de%20Peso" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 41 - Banda Facial -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">MOVILIDAD</div>
+            <div class="product-img">
+              <img src="imagenes/banda-facial.jpg" alt="Banda Facial">
+            </div>
+            <div class="product-info">
+              <h3>Banda Facial</h3>
+              <div class="price-row">
+                <span class="price">S/ 15.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/banda-facial.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Banda Facial</h3>
+              <p class="detail-text">
+                • Banda elástica para movilidad y estiramientos.<br>
+                • Ideal para rehabilitación de hombros y cadera.<br>
+                • Resistencia ligera, progresión suave.<br>
+                • Compacta y portátil para llevar a cualquier lado.<br>
+                • Set de 3 niveles de resistencia.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Banda%20Facial" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 42 - Barra de Dominadas -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">CALISTENIA</div>
+            <div class="product-img">
+              <img src="imagenes/barra-dominadas.jpg" alt="Barra de Dominadas">
+            </div>
+            <div class="product-info">
+              <h3>Barra de Dominadas</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 75.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/barra-dominadas.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Barra de Dominadas</h3>
+              <p class="detail-text">
+                • Barra de dominadas para puerta o pared.<br>
+                • Acero tubular de alta resistencia.<br>
+                • Agarre acolchado de espuma densa.<br>
+                • Soporta hasta 120kg de peso corporal.<br>
+                • Fácil instalación sin perforar pared (modelo puerta).
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Barra%20de%20Dominadas" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 43 - Gimnasio Rueda Abdominal -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">CORE</div>
+            <div class="product-img">
+              <img src="imagenes/rueda-abdominal.jpg" alt="Rueda Abdominal">
+            </div>
+            <div class="product-info">
+              <h3>Rueda Abdominal</h3>
+              <div class="price-row">
+                <span class="price">S/ 32.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/rueda-abdominal.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Rueda Abdominal</h3>
+              <p class="detail-text">
+                • Ab wheel con rueda ancha y estable.<br>
+                • Mango ergonómico con agarre antideslizante.<br>
+                • Fortalece core, espalda y brazos.<br>
+                • Rodamiento suave en cualquier superficie.<br>
+                • Ideal para ejercicios de estabilidad y fuerza abdominal.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Rueda%20Abdominal" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 44 - Disco Olímpico de Bumper -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">DISCO</div>
+            <div class="product-img">
+              <img src="imagenes/disco-bumper.jpg" alt="Disco Olímpico Bumper">
+            </div>
+            <div class="product-info">
+              <h3>Disco Olímpico Bumper</h3>
+              <div class="price-row">
+                <span class="price">Desde S/ 55.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/disco-bumper.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Disco Olímpico Bumper</h3>
+              <p class="detail-text">
+                • Disco de bumper con núcleo de acero inoxidable.<br>
+                • Recubrimiento de caucho para caídas seguras.<br>
+                • Agujero olímpico de 50.4mm.<br>
+                • Disponible en 5kg, 10kg, 15kg, 20kg y 25kg.<br>
+                • Ideal para levantamiento olímpico y CrossFit.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20Disco%20Olimpico%20Bumper" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 45 - Malla de Agarre para Discos -->
+      <div class="flip-card" data-category="accesorios">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-tag">GRIP</div>
+            <div class="product-img">
+              <img src="imagenes/malla-agarre-discos.jpg" alt="Malla de Agarre para Discos">
+            </div>
+            <div class="product-info">
+              <h3>Malla de Agarre para Discos</h3>
+              <div class="price-row">
+                <span class="price">S/ 18.00</span>
+                <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" style="--bg-image: url('imagenes/malla-agarre-discos.jpg');">
+            <div class="back-overlay"></div>
+            <div class="back-content">
+              <h3>Malla de Agarre para Discos</h3>
+              <p class="detail-text">
+                • Malla neopreno para cargar discos fácilmente.<br>
+                • Evita lesiones al cargar discos pesados.<br>
+                • Diseño ergonómico con asa reforzada.<br>
+                • Compatible con discos de 2" y 50mm.<br>
+                • Ideal para levantamiento olímpico y CrossFit.
+              </p>
+              <a href="https://wa.me/51904776365?text=Hola,%20deseo%20comprar%20la%20Malla%20de%20Agarre%20para%20Discos" target="_blank" class="btn-whatsapp-card">
+                <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
-<!-- Producto 12 - Trotadora -->
-<div class="flip-card" data-category="maquinas">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">MÁQUINA</div>
-      <div class="product-img">
-        <img src="imagenes/trotadora.jpg" alt="Trotadora">
-      </div>
-      <div class="product-info">
-        <h3>Trotadora</h3>
-        <div class="price-row">
-          <span class="price">Desde S/ 1,450.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/trotadora.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Trotadora</h3>
-        <p class="detail-text">
-          • Trotadora ideal para entrenamiento cardiovascular en casa.<br>
-          • Sistema de velocidad ajustable para diferentes niveles.<br>
-          • Superficie de carrera amplia y cómoda.<br>
-          • Pantalla con indicadores de velocidad, tiempo, distancia y calorías.<br>
-          • Diseño plegable para fácil almacenamiento.<br>
-          • Precio según el modelo y especificaciones.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Trotadora" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
- <!-- Producto 13 - Mini Gym Multifuncional -->
-<div class="flip-card" data-category="maquinas">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">MÁQUINA</div>
-      <div class="product-img">
-        <img src="imagenes/mini-gym-multifuncional.jpg" alt="Mini Gym Multifuncional">
-      </div>
-      <div class="product-info">
-        <h3>Mini Gym Multifuncional</h3>
-        <div class="price-row">
-          <span class="price">Desde S/ 1,600.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/mini-gym-multifuncional.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Mini Gym Multifuncional</h3>
-        <p class="detail-text">
-          • Estación completa para entrenamiento de todo el cuerpo.<br>
-          • Incluye poleas, press de pecho, extensiones y más.<br>
-          • Diseño compacto ideal para espacios reducidos.<br>
-          • Estructura resistente en acero de alta resistencia.<br>
-          • Permite trabajar pecho, espalda, brazos, piernas y hombros.<br>
-          • Precio según el modelo y configuración.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20el%20Mini%20Gym%20Multifuncional" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 14 - Banca Multifuncional para Pecho con Rack -->
-<div class="flip-card" data-category="maquinas">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">MÁQUINA</div>
-      <div class="product-img">
-        <img src="imagenes/banca-multifuncional-pecho-rack.jpg" alt="Banca Multifuncional para Pecho con Rack">
-      </div>
-      <div class="product-info">
-        <h3>Banca Multifuncional Pecho con Rack</h3>
-        <div class="price-row">
-          <span class="price">S/ 850.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/banca-multifuncional-pecho-rack.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Banca Multifuncional Pecho con Rack</h3>
-        <p class="detail-text">
-          • Banca con rack integrado para press de pecho.<br>
-          • Posiciones ajustables: plana, inclinada y declinada.<br>
-          • Rack con soportes para barra olímpica y estándar.<br>
-          • Estructura de acero reforzado para máxima estabilidad.<br>
-          • Ideal para entrenamientos de pecho, hombros y brazos.<br>
-          • Precio: S/ 850.00.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Banca%20Multifuncional%20Pecho%20con%20Rack" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 15 - Banca Plana -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-      <div class="product-img">
-        <img src="imagenes/banca-plana.jpg" alt="Banca Plana">
-      </div>
-      <div class="product-info">
-        <h3>Banca Plana</h3>
-        <div class="price-row">
-          <span class="price">S/ 330.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/banca-plana.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Banca Plana</h3>
-        <p class="detail-text">
-          • Banca plana ideal para press de pecho y ejercicios de fuerza.<br>
-          • Superficie acolchada cómoda y resistente.<br>
-          • Estructura de acero estable y duradera.<br>
-          • Compatible con la mayoría de racks y soportes.<br>
-          • Diseño compacto para gym en casa.<br>
-          • Precio: S/ 330.00.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Banca%20Plana" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 16 - Banca Reclinable -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-      <div class="product-img">
-        <img src="imagenes/banca-reclinable.jpg" alt="Banca Reclinable">
-      </div>
-      <div class="product-info">
-        <h3>Banca Reclinable</h3>
-        <div class="price-row">
-          <span class="price">S/ 380.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/banca-reclinable.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Banca Reclinable</h3>
-        <p class="detail-text">
-          • Banca con múltiples posiciones: plana, inclinada y declinada.<br>
-          • Ajuste rápido de ángulo para mayor versatilidad.<br>
-          • Superficie acolchada de alta densidad.<br>
-          • Estructura de acero con base antideslizante.<br>
-          • Ideal para press inclinado, sentadillas y ejercicios de espalda.<br>
-          • Precio: S/ 380.00.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Banca%20Reclinable" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 17 - Banca Plegable -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-      <div class="product-img">
-        <img src="imagenes/banca-plegable.jpg" alt="Banca Plegable">
-      </div>
-      <div class="product-info">
-        <h3>Banca Plegable</h3>
-        <div class="price-row">
-          <span class="price">S/ 350.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/banca-plegable.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Banca Plegable</h3>
-        <p class="detail-text">
-          • Banca plegable ideal para espacios reducidos.<br>
-          • Fácil de guardar tras el entrenamiento.<br>
-          • Superficie acolchada cómoda y resistente.<br>
-          • Estructura ligera pero estable en acero.<br>
-          • Perfecta para rutinas en casa sin sacrificar espacio.<br>
-          • Precio: S/ 350.00.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Banca%20Plegable" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 18 - Spinning -->
-<div class="flip-card" data-category="maquinas">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">MÁQUINA</div>
-      <div class="product-img">
-        <img src="imagenes/spinning.jpg" alt="Bicicleta de Spinning">
-      </div>
-      <div class="product-info">
-        <h3>Bicicleta de Spinning</h3>
-        <div class="price-row">
-          <span class="price">Desde S/ 800.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/spinning.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Bicicleta de Spinning</h3>
-        <p class="detail-text">
-          • Bicicleta de spinning ideal para entrenamiento cardiovascular intenso.<br>
-          • Sistema de resistencia ajustable por fricción o magnético.<br>
-          • Asiento y manillar regulables en altura y posición.<br>
-          • Pedales con sistema de agarre seguro.<br>
-          • Estructura robusta para uso intensivo.<br>
-          • Precio según el modelo y especificaciones.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Bicicleta%20de%20Spinning" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 19 - Banca Sissy -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-      <div class="product-img">
-        <img src="imagenes/banca-sissy.jpg" alt="Banca Sissy">
-      </div>
-      <div class="product-info">
-        <h3>Banca Sissy</h3>
-        <div class="price-row">
-          <span class="price">S/ 480.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/banca-sissy.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Banca Sissy</h3>
-        <p class="detail-text">
-          • Banca sissy ideal para cuádriceps y trabajo de piernas.<br>
-          • Diseño con soporte acolchado para rodillas y tobillos.<br>
-          • Estructura de acero resistente y estable.<br>
-          • Permite realizar sentadillas sissy con seguridad.<br>
-          • Perfecta para aislar cuádriceps y fortalecer rodillas.<br>
-          • Precio: S/ 480.00.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20la%20Banca%20Sissy" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Producto 20 - Barras Paralelas -->
-<div class="flip-card" data-category="accesorios">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <div class="card-tag">ACCESORIO</div>
-      <div class="product-img">
-        <img src="imagenes/barras-paralelas.jpg" alt="Barras Paralelas">
-      </div>
-      <div class="product-info">
-        <h3>Barras Paralelas</h3>
-        <div class="price-row">
-          <span class="price">S/ 270.00</span>
-          <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card-back" style="--bg-image: url('imagenes/barras-paralelas.jpg');">
-      <div class="back-overlay"></div>
-      <div class="back-content">
-        <h3>Barras Paralelas</h3>
-        <p class="detail-text">
-          • Barras paralelas ideales para fondos y trabajo de triceps.<br>
-          • Estructura de acero resistente y estable.<br>
-          • Agarre acolchado para mayor comodidad.<br>
-          • Base antideslizante para mayor seguridad.<br>
-          • Perfectas para entrenamiento funcional y calistenia.<br>
-          • Precio: S/ 270.00.
-        </p>
-        <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20las%20Barras%20Paralelas" target="_blank" class="btn-whatsapp-card">
-          <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
 
   <!-- Sección Nosotros -->
   <section id="nosotros" class="nosotros-section">
@@ -1106,7 +2011,7 @@
             <div class="stat-label">Clientes satisfechos</div>
           </div>
           <div class="stat-box">
-            <div class="stat-number">50+</div>
+            <div class="stat-number">44+</div>
             <div class="stat-label">Productos disponibles</div>
           </div>
           <div class="stat-box">
@@ -1188,8 +2093,8 @@
   <footer id="contacto" class="site-footer">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo">RAY<span> FITNESS</span></div>
-        <p>Especialistas en equipamiento fitness de calidad en Perú. Lleva tu entrenamiento al siguiente nivel con productos confiables y servicio personalizado.</p>
+        <div class="logo"><i class="fa-solid fa-dumbbell" style="color:#e63946;margin-right:6px;"></i>RAY<span> FITNESS</span></div>
+        <p><i class="fa-solid fa-fire" style="color:#e63946;margin-right:4px;"></i> Especialistas en equipamiento fitness de calidad en Perú. Lleva tu entrenamiento al siguiente nivel con productos confiables y servicio personalizado.</p>
         <div class="footer-social">
           <a href="https://wa.me/51904776365" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
           <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -1199,10 +2104,10 @@
       </div>
       <div class="footer-col">
         <h4>Productos</h4>
-        <a href="#productos">Mancuernas</a>
-        <a href="#productos">Barras y Discos</a>
-        <a href="#productos">Máquinas</a>
-        <a href="#productos">Accesorios</a>
+        <a onclick="filterCategory('mancuernas',null);scrollToSection('cat-mancuernas')">Mancuernas</a>
+        <a onclick="filterCategory('barras',null);scrollToSection('cat-barras')">Barras y Discos</a>
+        <a onclick="filterCategory('maquinas',null);scrollToSection('cat-maquinas')">Máquinas</a>
+        <a onclick="filterCategory('accesorios',null);scrollToSection('cat-accesorios')">Accesorios</a>
       </div>
       <div class="footer-col">
         <h4>Información</h4>
@@ -1254,7 +2159,65 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Scroll reveal animation
+    // === CATEGORY FILTER + SCROLL ===
+    function filterCategory(category, btnElement) {
+      // Update active button
+      if (btnElement) {
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        btnElement.classList.add('active');
+      } else {
+        // Find and activate the matching button
+        document.querySelectorAll('.category-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.category === category);
+        });
+      }
+
+      // Get all flip-cards and dividers
+      const cards = document.querySelectorAll('.flip-card');
+      const dividers = document.querySelectorAll('.category-section-divider');
+
+      if (category === 'todos') {
+        // Show everything
+        cards.forEach(card => {
+          card.style.display = '';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+        dividers.forEach(div => {
+          div.style.display = '';
+        });
+      } else {
+        // Hide dividers first
+        dividers.forEach(div => {
+          div.style.display = 'none';
+        });
+        // Show the matching divider
+        const targetDiv = document.getElementById('cat-' + category);
+        if (targetDiv) targetDiv.style.display = '';
+
+        // Filter cards
+        cards.forEach(card => {
+          if (card.dataset.category === category) {
+            card.style.display = '';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    function scrollToSection(sectionId) {
+      const target = document.getElementById(sectionId);
+      if (target) {
+        const yOffset = -80; // navbar offset
+        const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
+    // === Scroll reveal animation ===
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
