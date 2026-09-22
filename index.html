@@ -13,6 +13,8 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://iboy910.github.io/ray-fitness/">
   <meta property="og:image" content="imagenes/og-image.jpg">
+  <!-- Favicon RF (SVG inline) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='%23e63946' stroke-width='3'/%3E%3Ctext x='50%25' y='50%25' dy='.06em' font-family='Arial,Helvetica,sans-serif' font-size='30' font-weight='900' fill='%23e63946' text-anchor='middle' dominant-baseline='middle'%3ERF%3C/text%3E%3C/svg%3E">
   <!-- Fuentes e Íconos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,7 +68,7 @@
     /* === Scroll to Top Button === */
     .scroll-top-btn {
       position: fixed;
-      bottom: 90px;
+      bottom: 156px;
       right: 24px;
       width: 44px;
       height: 44px;
@@ -136,6 +138,7 @@
       margin: 0 auto;
       align-items: center;
     }
+    .nosotros-grid.solo { grid-template-columns: 1fr; max-width: 860px; }
     .nosotros-text h2 {
       font-size: 2.5rem;
       font-weight: 900;
@@ -425,6 +428,149 @@
       font-size: 1.1rem;
       margin: 30px 0;
     }
+
+    /* === Floating WhatsApp Button (fallback) === */
+    .whatsapp-btn {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 56px; height: 56px; background: #25d366; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; text-decoration: none; z-index: 998;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.5); animation: waPulse 2.2s infinite;
+      transition: transform 0.25s ease;
+    }
+    .whatsapp-btn:hover { transform: scale(1.1); }
+    @keyframes waPulse {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+      70% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+
+    /* === Cart button in navbar === */
+    .cart-btn {
+      position: relative; background: none; border: none; cursor: pointer;
+      color: #fff; font-size: 1.35rem; margin-left: 1.2rem; display: inline-flex;
+      align-items: center; transition: color 0.25s ease;
+    }
+    .cart-btn:hover { color: #e63946; }
+    .cart-count {
+      position: absolute; top: -8px; right: -10px; background: #e63946; color: #fff;
+      font-size: 0.7rem; font-weight: 800; min-width: 18px; height: 18px; padding: 0 4px;
+      border-radius: 10px; display: none; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif;
+    }
+    .cart-count.visible { display: flex; }
+
+    /* Floating cart button */
+    .cart-fab {
+      position: fixed; bottom: 90px; right: 24px; width: 56px; height: 56px;
+      background: linear-gradient(135deg, #e63946, #c0392b); color: #fff; border: none;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; cursor: pointer; z-index: 998;
+      box-shadow: 0 4px 18px rgba(230,57,70,0.5); transition: transform 0.25s ease;
+    }
+    .cart-fab:hover { transform: scale(1.1); }
+    .cart-fab .cart-count {
+      position: absolute; top: -6px; right: -6px; background: #fff; color: #e63946;
+      font-size: 0.72rem; font-weight: 800; min-width: 20px; height: 20px; padding: 0 5px;
+      border-radius: 10px; display: none; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif; border: 2px solid #e63946;
+    }
+    .cart-fab .cart-count.visible { display: flex; }
+
+    /* Add-to-cart button injected on cards */
+    .btn-add-cart {
+      width: 100%; margin-top: 0.6rem; background: #e63946; color: #fff; border: none;
+      border-radius: 8px; padding: 0.55rem 0.6rem; font-size: 0.85rem; font-weight: 700;
+      font-family: 'Outfit', sans-serif; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 0.4rem; transition: background 0.25s ease, transform 0.15s ease;
+    }
+    .btn-add-cart:hover { background: #c0392b; }
+    .btn-add-cart.added { background: #25d366; }
+    .btn-add-cart:active { transform: scale(0.97); }
+
+    /* === Cart Drawer === */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1002;
+      opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+    }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
+    .cart-drawer {
+      position: fixed; top: 0; right: -100%; width: 380px; max-width: 90vw; height: 100vh;
+      background: #111; z-index: 1003; display: flex; flex-direction: column;
+      box-shadow: -6px 0 30px rgba(0,0,0,0.5); transition: right 0.35s ease;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.3rem 1.4rem; border-bottom: 1px solid #222;
+    }
+    .cart-head h3 { color: #fff; font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
+    .cart-head h3 i { color: #e63946; }
+    .cart-close { background: none; border: none; color: #888; font-size: 1.4rem; cursor: pointer; }
+    .cart-close:hover { color: #e63946; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.4rem; }
+    .cart-empty { text-align: center; color: #777; padding: 3rem 1rem; }
+    .cart-empty i { font-size: 2.6rem; color: #333; margin-bottom: 1rem; display: block; }
+    .cart-item { display: flex; gap: 0.8rem; padding: 0.9rem 0; border-bottom: 1px solid #1e1e1e; }
+    .cart-item img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; background: #222; flex-shrink: 0; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { color: #fff; font-size: 0.88rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.2rem; }
+    .cart-item-price { color: #e63946; font-size: 0.82rem; font-weight: 700; }
+    .cart-qty { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+    .cart-qty button {
+      width: 24px; height: 24px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a;
+      color: #fff; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+    }
+    .cart-qty button:hover { border-color: #e63946; color: #e63946; }
+    .cart-qty span { color: #ddd; font-size: 0.9rem; min-width: 20px; text-align: center; }
+    .cart-item-remove { background: none; border: none; color: #666; cursor: pointer; font-size: 0.95rem; align-self: flex-start; }
+    .cart-item-remove:hover { color: #e63946; }
+    .cart-foot { padding: 1.2rem 1.4rem; border-top: 1px solid #222; }
+    .cart-total { display: flex; justify-content: space-between; color: #fff; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem; margin-bottom: 1rem; }
+    .cart-total span:last-child { color: #e63946; }
+    .cart-note { color: #777; font-size: 0.72rem; margin-bottom: 0.9rem; line-height: 1.4; }
+    .cart-send {
+      width: 100%; background: #25d366; color: #fff; border: none; border-radius: 10px;
+      padding: 0.9rem; font-size: 1rem; font-weight: 800; font-family: 'Outfit', sans-serif;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cart-send:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+    .cart-send:disabled { background: #333; color: #777; cursor: not-allowed; transform: none; box-shadow: none; }
+    @media (max-width: 480px) { .cart-drawer { width: 100%; } }
+
+    /* === Entregas y Envíos CTA button === */
+    .entregas-cta { text-align: center; padding: 40px 5% 10px; background: #0d0d0d; }
+    .btn-entregas {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: linear-gradient(135deg, #e63946, #c0392b); color: #fff;
+      font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem;
+      padding: 1rem 2.2rem; border-radius: 50px; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 22px rgba(230,57,70,0.35); transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .btn-entregas:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(230,57,70,0.5); }
+
+    /* === Entregas / Galerías === */
+    .entregas-section { padding: 70px 5%; }
+    .entregas-section.lima { background: #111; }
+    .entregas-section.provincia { background: #0d0d0d; }
+    .entregas-section .section-title { text-align: center; font-size: 2.1rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif; }
+    .entregas-section .section-title span { color: #e63946; }
+    .entregas-subtitle { text-align: center; color: #888; font-size: 1rem; margin-bottom: 2.5rem; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .entregas-gallery {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem; max-width: 1100px; margin: 0 auto;
+    }
+    .entregas-gallery img {
+      width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 14px;
+      border: 1px solid #2a2a2a; background: #1a1a1a; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .entregas-gallery img:hover { transform: scale(1.03); box-shadow: 0 8px 26px rgba(230,57,70,0.2); }
+    .entregas-empty {
+      max-width: 620px; margin: 0 auto; text-align: center; color: #777;
+      background: #1a1a1a; border: 1px dashed #333; border-radius: 14px; padding: 2.2rem 1.4rem;
+    }
+    .entregas-empty i { font-size: 2.2rem; color: #e63946; margin-bottom: 0.9rem; }
   </style>
 </head>
 <body>
@@ -496,7 +642,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁS VENDIDO</div>
             <div class="product-img">
-              <img src="imagenes/mancuernas.jpg" alt="Mancuernas hexagonales RAY Fitness">
+              <img loading="lazy" src="imagenes/mancuernas.jpg" alt="Mancuernas hexagonales RAY Fitness">
             </div>
             <div class="product-info">
               <h3>Set de Mancuernas Hexagonales</h3>
@@ -530,7 +676,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MANCUERNA</div>
             <div class="product-img">
-              <img src="imagenes/mancuernas-vinil.jpg" alt="Mancuernas de Vinil">
+              <img loading="lazy" src="imagenes/mancuernas-vinil.jpg" alt="Mancuernas de Vinil">
             </div>
             <div class="product-info">
               <h3>Mancuernas de Vinil</h3>
@@ -565,7 +711,7 @@
           <div class="flip-card-front">
             <div class="card-tag">PREMIUM</div>
             <div class="product-img">
-              <img src="imagenes/pesas-rusas-cromadas.jpg" alt="Pesas Rusas Cromadas">
+              <img loading="lazy" src="imagenes/pesas-rusas-cromadas.jpg" alt="Pesas Rusas Cromadas">
             </div>
             <div class="product-info">
               <h3>Pesas Rusas Cromadas</h3>
@@ -600,7 +746,7 @@
           <div class="flip-card-front">
             <div class="card-tag">FUNCIONAL</div>
             <div class="product-img">
-              <img src="imagenes/pesas-rusas-pvc.jpg" alt="Pesas Rusas PVC">
+              <img loading="lazy" src="imagenes/pesas-rusas-pvc.jpg" alt="Pesas Rusas PVC">
             </div>
             <div class="product-info">
               <h3>Pesas Rusas PVC</h3>
@@ -635,7 +781,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ORGANIZADOR</div>
             <div class="product-img">
-              <img src="imagenes/rack-mancuernas.jpg" alt="Rack para Mancuernas">
+              <img loading="lazy" src="imagenes/rack-mancuernas.jpg" alt="Rack para Mancuernas">
             </div>
             <div class="product-info">
               <h3>Rack para Mancuernas</h3>
@@ -670,7 +816,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MANCUERNA</div>
             <div class="product-img">
-              <img src="imagenes/manubrios.jpg" alt="Manubrios Ajustables">
+              <img loading="lazy" src="imagenes/manubrios.jpg" alt="Manubrios Ajustables">
             </div>
             <div class="product-info">
               <h3>Manubrios</h3>
@@ -713,7 +859,7 @@
           <div class="flip-card-front">
             <div class="card-tag">OFERTA</div>
             <div class="product-img">
-              <img src="imagenes/set-barra-20kg.jpg" alt="Set de barra con pesas 20kg">
+              <img loading="lazy" src="imagenes/set-barra-20kg.jpg" alt="Set de barra con pesas 20kg">
             </div>
             <div class="product-info">
               <h3>Set de barra con pesas 20kg</h3>
@@ -748,7 +894,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barras-standar.jpg" alt="Barras Estándar">
+              <img loading="lazy" src="imagenes/barras-standar.jpg" alt="Barras Estándar">
             </div>
             <div class="product-info">
               <h3>Barras Estándar</h3>
@@ -784,7 +930,7 @@
           <div class="flip-card-front">
             <div class="card-tag">DISCOS</div>
             <div class="product-img">
-              <img src="imagenes/discos-caucho.jpg" alt="Discos de Caucho">
+              <img loading="lazy" src="imagenes/discos-caucho.jpg" alt="Discos de Caucho">
             </div>
             <div class="product-info">
               <h3>Discos de Caucho</h3>
@@ -821,7 +967,7 @@
           <div class="flip-card-front">
             <div class="card-tag">DISCOS</div>
             <div class="product-img">
-              <img src="imagenes/discos-fierro.jpg" alt="Discos de Fierro">
+              <img loading="lazy" src="imagenes/discos-fierro.jpg" alt="Discos de Fierro">
             </div>
             <div class="product-info">
               <h3>Discos de Fierro</h3>
@@ -859,7 +1005,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA Z</div>
             <div class="product-img">
-              <img src="imagenes/barra-z.jpg" alt="Barra Z para bíceps">
+              <img loading="lazy" src="imagenes/barra-z.jpg" alt="Barra Z para bíceps">
             </div>
             <div class="product-info">
               <h3>Barra Z</h3>
@@ -895,7 +1041,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-olimpica-120.jpg" alt="Barra Recta Olímpica 1.20m">
+              <img loading="lazy" src="imagenes/barra-recta-olimpica-120.jpg" alt="Barra Recta Olímpica 1.20m">
             </div>
             <div class="product-info">
               <h3>Barra Recta Olímpica 1.20m</h3>
@@ -930,7 +1076,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-olimpica-150.jpg" alt="Barra Recta Olímpica 1.50m">
+              <img loading="lazy" src="imagenes/barra-recta-olimpica-150.jpg" alt="Barra Recta Olímpica 1.50m">
             </div>
             <div class="product-info">
               <h3>Barra Recta Olímpica 1.50m</h3>
@@ -965,7 +1111,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-olimpica-180.jpg" alt="Barra Recta Olímpica 1.80m">
+              <img loading="lazy" src="imagenes/barra-recta-olimpica-180.jpg" alt="Barra Recta Olímpica 1.80m">
             </div>
             <div class="product-info">
               <h3>Barra Recta Olímpica 1.80m</h3>
@@ -1000,7 +1146,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-olimpica-220.jpg" alt="Barra Recta Olímpica 2.20m 20kg">
+              <img loading="lazy" src="imagenes/barra-recta-olimpica-220.jpg" alt="Barra Recta Olímpica 2.20m 20kg">
             </div>
             <div class="product-info">
               <h3>Barra Recta Olímpica 2.20m 20kg</h3>
@@ -1035,7 +1181,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-z-olimpica-120.jpg" alt="Barra Z Olímpica 1.20m">
+              <img loading="lazy" src="imagenes/barra-z-olimpica-120.jpg" alt="Barra Z Olímpica 1.20m">
             </div>
             <div class="product-info">
               <h3>Barra Z Olímpica 1.20m</h3>
@@ -1070,7 +1216,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-romana-olimpica.jpg" alt="Barra Romana Olímpica">
+              <img loading="lazy" src="imagenes/barra-romana-olimpica.jpg" alt="Barra Romana Olímpica">
             </div>
             <div class="product-info">
               <h3>Barra Romana Olímpica</h3>
@@ -1105,7 +1251,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-safety.jpg" alt="Barra Safety">
+              <img loading="lazy" src="imagenes/barra-safety.jpg" alt="Barra Safety">
             </div>
             <div class="product-info">
               <h3>Barra Safety</h3>
@@ -1140,7 +1286,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-hexagonal-olimpica.jpg" alt="Barra Hexagonal Olímpica">
+              <img loading="lazy" src="imagenes/barra-hexagonal-olimpica.jpg" alt="Barra Hexagonal Olímpica">
             </div>
             <div class="product-info">
               <h3>Barra Hexagonal Olímpica</h3>
@@ -1175,7 +1321,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-z-fija-10kg.jpg" alt="Barra Z con Peso Fijo 10kg">
+              <img loading="lazy" src="imagenes/barra-z-fija-10kg.jpg" alt="Barra Z con Peso Fijo 10kg">
             </div>
             <div class="product-info">
               <h3>Barra Z con Peso Fijo 10kg</h3>
@@ -1210,7 +1356,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-z-fija-15kg.jpg" alt="Barra Z con Peso Fijo 15kg">
+              <img loading="lazy" src="imagenes/barra-z-fija-15kg.jpg" alt="Barra Z con Peso Fijo 15kg">
             </div>
             <div class="product-info">
               <h3>Barra Z con Peso Fijo 15kg</h3>
@@ -1245,7 +1391,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-z-fija-20kg.jpg" alt="Barra Z con Peso Fijo 20kg">
+              <img loading="lazy" src="imagenes/barra-z-fija-20kg.jpg" alt="Barra Z con Peso Fijo 20kg">
             </div>
             <div class="product-info">
               <h3>Barra Z con Peso Fijo 20kg</h3>
@@ -1280,7 +1426,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-z-fija-25kg.jpg" alt="Barra Z con Peso Fijo 25kg">
+              <img loading="lazy" src="imagenes/barra-z-fija-25kg.jpg" alt="Barra Z con Peso Fijo 25kg">
             </div>
             <div class="product-info">
               <h3>Barra Z con Peso Fijo 25kg</h3>
@@ -1315,7 +1461,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-fija-10kg.jpg" alt="Barra Recta con Peso Fijo 10kg">
+              <img loading="lazy" src="imagenes/barra-recta-fija-10kg.jpg" alt="Barra Recta con Peso Fijo 10kg">
             </div>
             <div class="product-info">
               <h3>Barra Recta con Peso Fijo 10kg</h3>
@@ -1350,7 +1496,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-fija-15kg.jpg" alt="Barra Recta con Peso Fijo 15kg">
+              <img loading="lazy" src="imagenes/barra-recta-fija-15kg.jpg" alt="Barra Recta con Peso Fijo 15kg">
             </div>
             <div class="product-info">
               <h3>Barra Recta con Peso Fijo 15kg</h3>
@@ -1385,7 +1531,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-fija-20kg.jpg" alt="Barra Recta con Peso Fijo 20kg">
+              <img loading="lazy" src="imagenes/barra-recta-fija-20kg.jpg" alt="Barra Recta con Peso Fijo 20kg">
             </div>
             <div class="product-info">
               <h3>Barra Recta con Peso Fijo 20kg</h3>
@@ -1420,7 +1566,7 @@
           <div class="flip-card-front">
             <div class="card-tag">BARRA</div>
             <div class="product-img">
-              <img src="imagenes/barra-recta-fija-25kg.jpg" alt="Barra Recta con Peso Fijo 25kg">
+              <img loading="lazy" src="imagenes/barra-recta-fija-25kg.jpg" alt="Barra Recta con Peso Fijo 25kg">
             </div>
             <div class="product-info">
               <h3>Barra Recta con Peso Fijo 25kg</h3>
@@ -1463,7 +1609,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/eliptica.jpg" alt="Elíptica Body Power 5 en 1">
+              <img loading="lazy" src="imagenes/eliptica.jpg" alt="Elíptica Body Power 5 en 1">
             </div>
             <div class="product-info">
               <h3>Elíptica Body Power 5 en 1</h3>
@@ -1498,7 +1644,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/rack-sentadillas.jpg" alt="Rack de Sentadillas">
+              <img loading="lazy" src="imagenes/rack-sentadillas.jpg" alt="Rack de Sentadillas">
             </div>
             <div class="product-info">
               <h3>Rack de Sentadillas</h3>
@@ -1534,7 +1680,7 @@
           <div class="flip-card-front">
             <div class="card-tag">CARDIO</div>
             <div class="product-img">
-              <img src="imagenes/step.jpg" alt="Step de entrenamiento">
+              <img loading="lazy" src="imagenes/step.jpg" alt="Step de entrenamiento">
             </div>
             <div class="product-info">
               <h3>Step de 3 Niveles</h3>
@@ -1569,7 +1715,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/banco-ajustable.jpg" alt="Banco Ajustable">
+              <img loading="lazy" src="imagenes/banco-ajustable.jpg" alt="Banco Ajustable">
             </div>
             <div class="product-info">
               <h3>Banco Ajustable</h3>
@@ -1605,7 +1751,7 @@
           <div class="flip-card-front">
             <div class="card-tag">CARDIO</div>
             <div class="product-img">
-              <img src="imagenes/bicicleta-estatica.jpg" alt="Bicicleta Estática">
+              <img loading="lazy" src="imagenes/bicicleta-estatica.jpg" alt="Bicicleta Estática">
             </div>
             <div class="product-info">
               <h3>Bicicleta Estática</h3>
@@ -1640,7 +1786,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/cinta-correr.jpg" alt="Cinta de Correr">
+              <img loading="lazy" src="imagenes/cinta-correr.jpg" alt="Cinta de Correr">
             </div>
             <div class="product-info">
               <h3>Cinta de Correr</h3>
@@ -1675,7 +1821,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/banca-sissy.jpg" alt="Banca Sissy">
+              <img loading="lazy" src="imagenes/banca-sissy.jpg" alt="Banca Sissy">
             </div>
             <div class="product-info">
               <h3>Banca Sissy</h3>
@@ -1710,7 +1856,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/banca-plegable.jpg" alt="Banca Plegable">
+              <img loading="lazy" src="imagenes/banca-plegable.jpg" alt="Banca Plegable">
             </div>
             <div class="product-info">
               <h3>Banca Plegable</h3>
@@ -1745,7 +1891,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/banca-plana.jpg" alt="Banca Plana">
+              <img loading="lazy" src="imagenes/banca-plana.jpg" alt="Banca Plana">
             </div>
             <div class="product-info">
               <h3>Banca Plana</h3>
@@ -1780,7 +1926,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/banca-multifuncional.jpg" alt="Banca Multifuncional">
+              <img loading="lazy" src="imagenes/banca-multifuncional.jpg" alt="Banca Multifuncional">
             </div>
             <div class="product-info">
               <h3>Banca Multifuncional</h3>
@@ -1815,7 +1961,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/banca-multifuncional-rack.jpg" alt="Banca Multifuncional con Rack">
+              <img loading="lazy" src="imagenes/banca-multifuncional-rack.jpg" alt="Banca Multifuncional con Rack">
             </div>
             <div class="product-info">
               <h3>Banca Multifuncional con Rack</h3>
@@ -1850,7 +1996,7 @@
           <div class="flip-card-front">
             <div class="card-tag">MÁQUINA</div>
             <div class="product-img">
-              <img src="imagenes/mini-gym-multifuncional.jpg" alt="Mini Gym Multifuncional">
+              <img loading="lazy" src="imagenes/mini-gym-multifuncional.jpg" alt="Mini Gym Multifuncional">
             </div>
             <div class="product-info">
               <h3>Mini Gym Multifuncional</h3>
@@ -1893,7 +2039,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ABDOMEN</div>
             <div class="product-img">
-              <img src="imagenes/rueda-abs.jpg" alt="Rueda ABS">
+              <img loading="lazy" src="imagenes/rueda-abs.jpg" alt="Rueda ABS">
             </div>
             <div class="product-info">
               <h3>Rueda ABS</h3>
@@ -1928,7 +2074,7 @@
           <div class="flip-card-front">
             <div class="card-tag">PECHO</div>
             <div class="product-img">
-              <img src="imagenes/tablero-push-up.jpg" alt="Tablero Push Up">
+              <img loading="lazy" src="imagenes/tablero-push-up.jpg" alt="Tablero Push Up">
             </div>
             <div class="product-info">
               <h3>Tablero Push Up</h3>
@@ -1963,7 +2109,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
-              <img src="imagenes/bandas.jpg" alt="Bandas de Resistencia">
+              <img loading="lazy" src="imagenes/bandas.jpg" alt="Bandas de Resistencia">
             </div>
             <div class="product-info">
               <h3>Bandas de Resistencia Elásticas</h3>
@@ -1997,7 +2143,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
-              <img src="imagenes/accesorios-poleas.jpg" alt="Accesorios de Poleas">
+              <img loading="lazy" src="imagenes/accesorios-poleas.jpg" alt="Accesorios de Poleas">
             </div>
             <div class="product-info">
               <h3>Accesorios de Poleas</h3>
@@ -2032,15 +2178,13 @@
           <div class="flip-card-front">
             <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
-              <img src="imagenes/maleta-acople.jpg" alt="Maleta de Acople">
+              <img loading="lazy" src="imagenes/maleta-acople.jpg" alt="Maleta de Acople">
             </div>
             <div class="product-info">
               <h3>Maleta de Acople</h3>
               <div class="price-row">
                 <span class="price">
-                  20 kg: S/ 165.00<br>
-                  30 kg: S/ 245.00<br>
-                  50 kg: S/ 520.00
+                  Desde S/ 165.00<br>
                 </span>
                 <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
               </div>
@@ -2075,7 +2219,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
-              <img src="imagenes/tatamis.jpg" alt="Tatamis para entrenamiento">
+              <img loading="lazy" src="imagenes/tatamis.jpg" alt="Tatamis para entrenamiento">
             </div>
             <div class="product-info">
               <h3>Tatamis</h3>
@@ -2111,7 +2255,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
-              <img src="imagenes/bosu.jpg" alt="Bosu de entrenamiento">
+              <img loading="lazy" src="imagenes/bosu.jpg" alt="Bosu de entrenamiento">
             </div>
             <div class="product-info">
               <h3>Bosu</h3>
@@ -2147,7 +2291,7 @@
           <div class="flip-card-front">
             <div class="card-tag">FUNCIONAL</div>
             <div class="product-img">
-              <img src="imagenes/chaleco-peso.jpg" alt="Chaleco de Peso">
+              <img loading="lazy" src="imagenes/chaleco-peso.jpg" alt="Chaleco de Peso">
             </div>
             <div class="product-info">
               <h3>Chaleco de Peso</h3>
@@ -2182,7 +2326,7 @@
           <div class="flip-card-front">
             <div class="card-tag">ACCESORIO</div>
             <div class="product-img">
-              <img src="imagenes/tobilleras.jpg" alt="Tobilleras de Peso">
+              <img loading="lazy" src="imagenes/tobilleras.jpg" alt="Tobilleras de Peso">
             </div>
             <div class="product-info">
               <h3>Tobilleras de Peso</h3>
@@ -2217,12 +2361,12 @@
           <div class="flip-card-front">
             <div class="card-tag">SEGURIDAD</div>
             <div class="product-img">
-              <img src="imagenes/correas.jpg" alt="Correas de cuero">
+              <img loading="lazy" src="imagenes/correas.jpg" alt="Correas de cuero">
             </div>
             <div class="product-info">
               <h3>Correas de cuero</h3>
               <div class="price-row">
-                <span class="price">S/ 35.00</span>
+                <span class="price">S/ 48.00</span>
                 <button class="btn-detail">Ver Detalle <i class="fa-solid fa-rotate"></i></button>
               </div>
             </div>
@@ -2232,7 +2376,7 @@
             <div class="back-content">
               <h3>Correas de cuero</h3>
               <p class="detail-text">
-                • Correas de algodón resistente para mejorar el grip.<br>
+                • Correas de cuero resistente para mejorar el grip.<br>
                 • Ideales para peso muerto, remos y jalones.<br>
                 • Evitan que la barra se resbale de las manos.<br>
                 • Ajustables y cómodas para cualquier muñeca.<br>
@@ -2255,7 +2399,7 @@
           <div class="flip-card-front">
             <div class="card-tag">CARDIO</div>
             <div class="product-img">
-              <img src="imagenes/cuerda-saltar.jpg" alt="Cuerdas para Saltar">
+              <img loading="lazy" src="imagenes/cuerda-saltar.jpg" alt="Cuerdas para Saltar">
             </div>
             <div class="product-info">
               <h3>Cuerdas para Saltar</h3>
@@ -2290,7 +2434,7 @@
           <div class="flip-card-front">
             <div class="card-tag">SOPORTE</div>
             <div class="product-img">
-              <img src="imagenes/munnequeras.jpg" alt="Muñequeras">
+              <img loading="lazy" src="imagenes/munnequeras.jpg" alt="Muñequeras">
             </div>
             <div class="product-info">
               <h3>Muñequeras</h3>
@@ -2326,7 +2470,7 @@
           <div class="flip-card-front">
             <div class="card-tag">PISO</div>
             <div class="product-img">
-              <img src="imagenes/colchoneta.jpg" alt="Colchoneta de Ejercicio">
+              <img loading="lazy" src="imagenes/colchoneta.jpg" alt="Colchoneta de Ejercicio">
             </div>
             <div class="product-info">
               <h3>Colchoneta de Ejercicio</h3>
@@ -2361,7 +2505,7 @@
           <div class="flip-card-front">
             <div class="card-tag">CALISTENIA</div>
             <div class="product-img">
-              <img src="imagenes/barras-paralelas.jpg" alt="Barras Paralelas">
+              <img loading="lazy" src="imagenes/barras-paralelas.jpg" alt="Barras Paralelas">
             </div>
             <div class="product-info">
               <h3>Barras Paralelas</h3>
@@ -2396,7 +2540,7 @@
           <div class="flip-card-front">
             <div class="card-tag">PESO EXTRA</div>
             <div class="product-img">
-              <img src="imagenes/cinturon-peso.jpg" alt="Cinturón de Peso">
+              <img loading="lazy" src="imagenes/cinturon-peso.jpg" alt="Cinturón de Peso">
             </div>
             <div class="product-info">
               <h3>Cinturón de Peso</h3>
@@ -2432,7 +2576,7 @@
           <div class="flip-card-front">
             <div class="card-tag">CALISTENIA</div>
             <div class="product-img">
-              <img src="imagenes/barra-dominadas.jpg" alt="Barra de Dominadas">
+              <img loading="lazy" src="imagenes/barra-dominadas.jpg" alt="Barra de Dominadas">
             </div>
             <div class="product-info">
               <h3>Barra de Dominadas</h3>
@@ -2467,7 +2611,7 @@
           <div class="flip-card-front">
             <div class="card-tag">CORE</div>
             <div class="product-img">
-              <img src="imagenes/rueda-abdominal.jpg" alt="Rueda Abdominal">
+              <img loading="lazy" src="imagenes/rueda-abdominal.jpg" alt="Rueda Abdominal">
             </div>
             <div class="product-info">
               <h3>Rueda Abdominal</h3>
@@ -2502,7 +2646,7 @@
           <div class="flip-card-front">
             <div class="card-tag">DISCO</div>
             <div class="product-img">
-              <img src="imagenes/disco-bumper.jpg" alt="Disco Olímpico Bumper">
+              <img loading="lazy" src="imagenes/disco-bumper.jpg" alt="Disco Olímpico Bumper">
             </div>
             <div class="product-info">
               <h3>Disco Olímpico Bumper</h3>
@@ -2535,9 +2679,14 @@
     </div>
   </section>
 
+  <!-- CTA Entregas y Envíos -->
+  <div class="entregas-cta">
+    <button class="btn-entregas" onclick="scrollToSection('entregas-lima')"><i class="fa-solid fa-truck-fast"></i> Entregas y Envíos</button>
+  </div>
+
   <!-- Sección Nosotros -->
   <section id="nosotros" class="nosotros-section">
-    <div class="nosotros-grid">
+    <div class="nosotros-grid solo">
       <div class="nosotros-text">
         <h2>SOBRE <span>RAY FITNESS</span></h2>
         <p>Somos una tienda peruana especializada en equipamiento fitness de calidad. Nació de la pasión por el entrenamiento y la necesidad de ofrecer productos confiables a precios justos para todos los atletas del Perú.</p>
@@ -2562,9 +2711,6 @@
           <span class="value-tag"><i class="fa-solid fa-headset"></i> Soporte personalizado</span>
           <span class="value-tag"><i class="fa-solid fa-hand-holding-heart"></i> Precio justo</span>
         </div>
-      </div>
-      <div class="nosotros-image">
-        <img src="imagenes/nosotros.jpg" alt="RAY Fitness - Equipamiento fitness en Perú">
       </div>
     </div>
   </section>
@@ -2616,6 +2762,63 @@
     </div>
   </section>
 
+  <!-- Sección Entregas Lima -->
+  <section id="entregas-lima" class="entregas-section lima">
+    <h2 class="section-title">ENTREGAS A TODO <span>LIMA METROPOLITANA</span></h2>
+    <p class="entregas-subtitle">Estas son algunas de las entregas reales que hemos realizado en Lima. ¡Gracias por la confianza, reyes! 💪</p>
+    <div class="entregas-gallery" id="galeriaLima">
+      <img loading="lazy" src="imagenes/entregas-lima/lima-1.jpg" alt="Entrega real en Lima 1">
+      <img loading="lazy" src="imagenes/entregas-lima/lima-2.jpg" alt="Entrega real en Lima 2">
+      <img loading="lazy" src="imagenes/entregas-lima/lima-3.jpg" alt="Entrega real en Lima 3">
+      <img loading="lazy" src="imagenes/entregas-lima/lima-4.jpg" alt="Entrega real en Lima 4">
+      <img loading="lazy" src="imagenes/entregas-lima/lima-5.jpg" alt="Entrega real en Lima 5">
+      <img loading="lazy" src="imagenes/entregas-lima/lima-6.jpg" alt="Entrega real en Lima 6">
+    </div>
+    <div class="entregas-empty" id="emptyLima" style="display:none;">
+      <i class="fa-solid fa-images"></i>
+      <p>Pronto subiremos aquí las fotos de nuestras entregas en Lima. (Coloca tus fotos en la carpeta <b>imagenes/entregas-lima/</b> con los nombres lima-1.jpg, lima-2.jpg, etc.)</p>
+    </div>
+  </section>
+
+  <!-- Sección Entregas Provincia -->
+  <section id="entregas-provincia" class="entregas-section provincia">
+    <h2 class="section-title">ENTREGAS A TODA <span>PROVINCIA</span></h2>
+    <p class="entregas-subtitle">Envíos reales realizados a diferentes regiones del Perú. Llegamos a donde estés. 🚚</p>
+    <div class="entregas-gallery" id="galeriaProvincia">
+      <img loading="lazy" src="imagenes/entregas-provincia/prov-1.jpg" alt="Envío real a provincia 1">
+      <img loading="lazy" src="imagenes/entregas-provincia/prov-2.jpg" alt="Envío real a provincia 2">
+      <img loading="lazy" src="imagenes/entregas-provincia/prov-3.jpg" alt="Envío real a provincia 3">
+      <img loading="lazy" src="imagenes/entregas-provincia/prov-4.jpg" alt="Envío real a provincia 4">
+      <img loading="lazy" src="imagenes/entregas-provincia/prov-5.jpg" alt="Envío real a provincia 5">
+      <img loading="lazy" src="imagenes/entregas-provincia/prov-6.jpg" alt="Envío real a provincia 6">
+    </div>
+    <div class="entregas-empty" id="emptyProvincia" style="display:none;">
+      <i class="fa-solid fa-images"></i>
+      <p>Pronto subiremos aquí las fotos de nuestros envíos a provincias. (Coloca tus fotos en la carpeta <b>imagenes/entregas-provincia/</b> con los nombres prov-1.jpg, prov-2.jpg, etc.)</p>
+    </div>
+  </section>
+
+  <!-- Botón Flotante de Carrito -->
+  <button class="cart-fab" id="cartFab" onclick="openCart()" aria-label="Ver carrito">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+
+  <!-- Drawer del Carrito -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de compras">
+    <div class="cart-head">
+      <h3><i class="fa-solid fa-cart-shopping"></i> Mi Pedido</h3>
+      <button class="cart-close" onclick="closeCart()" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span>Total referencial:</span><span id="cartTotal">S/ 0.00</span></div>
+      <p class="cart-note">* El total es referencial. Algunos productos varían según peso/medida; confirmamos el precio final por WhatsApp.</p>
+      <button class="cart-send" id="cartSend" onclick="sendCartWhatsApp()" disabled><i class="fa-brands fa-whatsapp"></i> Enviar pedido por WhatsApp</button>
+    </div>
+  </aside>
+
   <!-- Botón Flotante de WhatsApp -->
   <a href="https://wa.me/51904776365?text=Hola,%20estoy%20interesado%20en%20sus%20productos%20fitness" class="whatsapp-btn" target="_blank" aria-label="Contactar por WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
@@ -2633,10 +2836,9 @@
         <div class="logo"><i class="fa-solid fa-dumbbell" style="color:#e63946;margin-right:6px;"></i>RAY<span> FITNESS</span></div>
         <p><i class="fa-solid fa-fire" style="color:#e63946;margin-right:4px;"></i> Especialistas en equipamiento fitness de calidad en Perú. Lleva tu entrenamiento al siguiente nivel con productos confiables y servicio personalizado.</p>
         <div class="footer-social">
-          <a href="https://wa.me/51904776365" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/51904776365" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/rayfitness_pe?stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@rayfitness.com" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
         </div>
       </div>
       <div class="footer-col">
@@ -2650,7 +2852,7 @@
         <h4>Información</h4>
         <a href="#nosotros">Sobre Nosotros</a>
         <a href="#testimonios">Opiniones</a>
-        <a href="#">Envíos y Delivery</a>
+        <a onclick="scrollToSection('entregas-lima')">Envíos y Delivery</a>
         <a href="#">Política de Devoluciones</a>
       </div>
       <div class="footer-col">
@@ -2782,6 +2984,173 @@
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(el);
     });
+
+    // === CARRITO DE COMPRAS ===
+    const WA_NUMBER = '51904776365';
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('rayCart') || '[]'); } catch (e) { cart = []; }
+
+    function parsePrice(txt) {
+      if (!txt) return 0;
+      const m = txt.replace(/[^0-9.,]/g, '').replace(/,/g, '');
+      const n = parseFloat(m);
+      return isNaN(n) ? 0 : n;
+    }
+
+    // Inject "Agregar al carrito" button into each product card
+    document.querySelectorAll('.flip-card').forEach(card => {
+      const front = card.querySelector('.flip-card-front');
+      if (!front) return;
+      const info = front.querySelector('.product-info');
+      const h3 = front.querySelector('h3');
+      const priceEl = front.querySelector('.price');
+      const imgEl = front.querySelector('.product-img img');
+      if (!info || !h3) return;
+      const name = h3.textContent.trim();
+      const priceText = priceEl ? priceEl.textContent.trim() : '';
+      const img = imgEl ? imgEl.getAttribute('src') : '';
+      const btn = document.createElement('button');
+      btn.className = 'btn-add-cart';
+      btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar al carrito';
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        addToCart(name, priceText, img);
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Agregado';
+        setTimeout(() => {
+          btn.classList.remove('added');
+          btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar al carrito';
+        }, 1200);
+      });
+      info.appendChild(btn);
+    });
+
+    function addToCart(name, priceText, img) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) { existing.qty++; }
+      else { cart.push({ name: name, priceText: priceText, price: parsePrice(priceText), img: img, qty: 1 }); }
+      saveCart(); renderCart();
+    }
+    function changeQty(name, delta) {
+      const it = cart.find(i => i.name === name);
+      if (!it) return;
+      it.qty += delta;
+      if (it.qty <= 0) cart = cart.filter(i => i.name !== name);
+      saveCart(); renderCart();
+    }
+    function removeItem(name) { cart = cart.filter(i => i.name !== name); saveCart(); renderCart(); }
+    function saveCart() { try { localStorage.setItem('rayCart', JSON.stringify(cart)); } catch (e) {} }
+
+    function renderCart() {
+      const cont = document.getElementById('cartItems');
+      const countEls = document.querySelectorAll('.cart-count');
+      const totalEl = document.getElementById('cartTotal');
+      const sendBtn = document.getElementById('cartSend');
+      const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+      countEls.forEach(c => { c.textContent = totalQty; c.classList.toggle('visible', totalQty > 0); });
+
+      if (cart.length === 0) {
+        cont.innerHTML = '<div class="cart-empty"><i class="fa-solid fa-cart-shopping"></i><p>Tu carrito está vacío.<br>Agrega productos para armar tu pedido.</p></div>';
+        totalEl.textContent = 'S/ 0.00';
+        sendBtn.disabled = true;
+        return;
+      }
+      let html = '';
+      let total = 0;
+      cart.forEach(i => {
+        total += i.price * i.qty;
+        const safeName = i.name.replace(/"/g, '&quot;');
+        html += '<div class="cart-item">' +
+          (i.img ? '<img loading="lazy" src="' + i.img + '" alt="">' : '<img loading="lazy" alt="">') +
+          '<div class="cart-item-info">' +
+            '<div class="cart-item-name">' + escapeHtml(i.name) + '</div>' +
+            '<div class="cart-item-price">' + escapeHtml(i.priceText || 'Consultar') + '</div>' +
+            '<div class="cart-qty">' +
+              '<button aria-label="Quitar uno" data-act="minus" data-name="' + safeName + '">−</button>' +
+              '<span>' + i.qty + '</span>' +
+              '<button aria-label="Agregar uno" data-act="plus" data-name="' + safeName + '">+</button>' +
+            '</div>' +
+          '</div>' +
+          '<button class="cart-item-remove" data-act="remove" data-name="' + safeName + '" aria-label="Eliminar"><i class="fa-solid fa-trash"></i></button>' +
+        '</div>';
+      });
+      cont.innerHTML = html;
+      cont.querySelectorAll('[data-act]').forEach(b => {
+        b.addEventListener('click', function () {
+          const nm = this.getAttribute('data-name').replace(/&quot;/g, '"');
+          const act = this.getAttribute('data-act');
+          if (act === 'plus') changeQty(nm, 1);
+          else if (act === 'minus') changeQty(nm, -1);
+          else removeItem(nm);
+        });
+      });
+      totalEl.textContent = 'S/ ' + total.toFixed(2);
+      sendBtn.disabled = false;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function openCart() {
+      document.getElementById('cartOverlay').classList.add('open');
+      document.getElementById('cartDrawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      document.getElementById('cartOverlay').classList.remove('open');
+      document.getElementById('cartDrawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function sendCartWhatsApp() {
+      if (cart.length === 0) return;
+      let msg = '¡Hola RAY Fitness! 💪 Quiero hacer el siguiente pedido:%0A%0A';
+      let total = 0;
+      cart.forEach((i, idx) => {
+        total += i.price * i.qty;
+        msg += (idx + 1) + '. ' + i.name + '%0A';
+        msg += '   • Cantidad: ' + i.qty + '%0A';
+        msg += '   • Precio ref.: ' + (i.priceText || 'Consultar') + '%0A%0A';
+      });
+      msg += 'Total referencial: S/ ' + total.toFixed(2) + '%0A';
+      msg += '(Quedo atento para confirmar precios finales y el envío. ¡Gracias!)';
+      window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+    }
+
+    renderCart();
+
+    // === Galerías de entregas: ocultar imgs rotas y mostrar aviso si no hay fotos ===
+    function initGallery(galleryId, emptyId) {
+      const gal = document.getElementById(galleryId);
+      const empty = document.getElementById(emptyId);
+      if (!gal) return;
+      const imgs = Array.from(gal.querySelectorAll('img'));
+      let remaining = imgs.length;
+      let loaded = 0;
+      function check() {
+        if (loaded === 0) { gal.style.display = 'none'; if (empty) empty.style.display = 'block'; }
+      }
+      imgs.forEach(img => {
+        img.addEventListener('error', function () {
+          img.style.display = 'none';
+          remaining--;
+          if (remaining === 0) check();
+        });
+        img.addEventListener('load', function () {
+          loaded++;
+          remaining--;
+          if (remaining === 0) check();
+        });
+        if (img.complete) {
+          if (img.naturalWidth === 0) { img.style.display = 'none'; remaining--; }
+          else { loaded++; remaining--; }
+          if (remaining === 0) check();
+        }
+      });
+    }
+    initGallery('galeriaLima', 'emptyLima');
+    initGallery('galeriaProvincia', 'emptyProvincia');
   </script>
 
 </body>
