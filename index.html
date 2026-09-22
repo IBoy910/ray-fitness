@@ -361,6 +361,70 @@
     @media (max-width: 480px) {
       .footer-grid { grid-template-columns: 1fr; }
     }
+
+    /* === Search bar === */
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 30px;
+      padding: 0 20px;
+    }
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 14px 46px 14px 46px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .search-input::placeholder { color: rgba(255,255,255,0.45); }
+    .search-input:focus {
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.25);
+      background: rgba(255,255,255,0.09);
+    }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.5);
+      pointer-events: none;
+    }
+    .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .search-clear:hover { background: #e63946; }
+    .search-clear.visible { display: flex; }
+    .no-results {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 1.1rem;
+      margin: 30px 0;
+    }
   </style>
 </head>
 <body>
@@ -408,6 +472,14 @@
       <button class="category-btn" data-category="maquinas" onclick="filterCategory('maquinas', this)">Máquinas</button>
       <button class="category-btn" data-category="accesorios" onclick="filterCategory('accesorios', this)">Accesorios</button>
     </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos... (ej. barra, mancuerna, banca)" oninput="applyFilters()" autocomplete="off">
+        <button type="button" class="search-clear" id="searchClear" aria-label="Limpiar búsqueda" onclick="clearSearch()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <p id="noResults" class="no-results" style="display:none;">No se encontraron productos. Prueba con otra búsqueda. 🔍</p>
     <div class="products-grid">
 
       <!-- ═══════════════ DIVIDER: MANCUERNAS ═══════════════ -->
@@ -2624,53 +2696,65 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // === CATEGORY FILTER + SCROLL ===
+    // === CATEGORY FILTER + SEARCH + SCROLL ===
+    let activeCategory = 'todos';
+
+    function applyFilters() {
+      const input = document.getElementById('searchInput');
+      const term = (input ? input.value : '').trim().toLowerCase();
+      const cards = document.querySelectorAll('.flip-card');
+      const dividers = document.querySelectorAll('.category-section-divider');
+      const visibleByCat = {};
+      let anyVisible = false;
+
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        const h3 = card.querySelector('h3');
+        const name = (h3 ? h3.textContent : '').toLowerCase();
+        const matchCat = (activeCategory === 'todos' || cat === activeCategory);
+        const matchTerm = (term === '' || name.indexOf(term) !== -1);
+        if (matchCat && matchTerm) {
+          card.style.display = '';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+          visibleByCat[cat] = true;
+          anyVisible = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show a divider only if its category has visible cards
+      dividers.forEach(div => {
+        const cat = div.id.replace('cat-', '');
+        div.style.display = visibleByCat[cat] ? '' : 'none';
+      });
+
+      // Toggle clear button + no-results message
+      const clearBtn = document.getElementById('searchClear');
+      if (clearBtn) clearBtn.classList.toggle('visible', term !== '');
+      const noRes = document.getElementById('noResults');
+      if (noRes) noRes.style.display = anyVisible ? 'none' : 'block';
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      if (input) { input.value = ''; input.focus(); }
+      applyFilters();
+    }
+
     function filterCategory(category, btnElement) {
+      activeCategory = category;
       // Update active button
       if (btnElement) {
         document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
         btnElement.classList.add('active');
       } else {
-        // Find and activate the matching button
         document.querySelectorAll('.category-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.category === category);
         });
       }
-
-      // Get all flip-cards and dividers
-      const cards = document.querySelectorAll('.flip-card');
-      const dividers = document.querySelectorAll('.category-section-divider');
-
-      if (category === 'todos') {
-        // Show everything
-        cards.forEach(card => {
-          card.style.display = '';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        });
-        dividers.forEach(div => {
-          div.style.display = '';
-        });
-      } else {
-        // Hide dividers first
-        dividers.forEach(div => {
-          div.style.display = 'none';
-        });
-        // Show the matching divider
-        const targetDiv = document.getElementById('cat-' + category);
-        if (targetDiv) targetDiv.style.display = '';
-
-        // Filter cards
-        cards.forEach(card => {
-          if (card.dataset.category === category) {
-            card.style.display = '';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      }
+      applyFilters();
     }
 
     function scrollToSection(sectionId) {
