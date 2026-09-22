@@ -571,6 +571,47 @@
       background: #1a1a1a; border: 1px dashed #333; border-radius: 14px; padding: 2.2rem 1.4rem;
     }
     .entregas-empty i { font-size: 2.2rem; color: #e63946; margin-bottom: 0.9rem; }
+
+    /* Nav links (onclick items) */
+    .nav-links a { cursor: pointer; }
+
+    /* === Flip on CLICK (not hover) so the cart button is clickable === */
+    .flip-card:hover .flip-card-inner { transform: none; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .btn-detail { cursor: pointer; }
+
+    /* === Return & Trust Policy Modal === */
+    .policy-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1004;
+      opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+      display: flex; align-items: center; justify-content: center; padding: 1.2rem;
+    }
+    .policy-overlay.open { opacity: 1; visibility: visible; }
+    .policy-modal {
+      background: #141414; border: 1px solid #2a2a2a; border-radius: 18px;
+      max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto;
+      padding: 2rem 2rem 2.2rem; transform: translateY(20px); transition: transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .policy-overlay.open .policy-modal { transform: translateY(0); }
+    .policy-modal .policy-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
+    .policy-modal h3 { color: #fff; font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 900; line-height: 1.2; }
+    .policy-modal h3 span { color: #e63946; }
+    .policy-close { background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+    .policy-close:hover { color: #e63946; }
+    .policy-intro { color: #bbb; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.4rem; }
+    .policy-list { display: flex; flex-direction: column; gap: 0.9rem; }
+    .policy-item { display: flex; gap: 0.9rem; align-items: flex-start; background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 1rem 1.1rem; }
+    .policy-item .p-ico { color: #e63946; font-size: 1.2rem; margin-top: 2px; flex-shrink: 0; width: 22px; text-align: center; }
+    .policy-item h4 { color: #fff; font-size: 0.98rem; font-weight: 700; font-family: 'Outfit', sans-serif; margin-bottom: 0.25rem; }
+    .policy-item p { color: #aaa; font-size: 0.88rem; line-height: 1.6; }
+    .policy-cta { display: flex; justify-content: center; margin-top: 1.6rem; }
+    .policy-cta a {
+      display: inline-flex; align-items: center; gap: 0.5rem; background: #25d366; color: #fff;
+      font-weight: 700; font-family: 'Outfit', sans-serif; padding: 0.8rem 1.8rem; border-radius: 50px;
+      text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .policy-cta a:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37,211,102,0.4); }
   </style>
 </head>
 <body>
@@ -587,6 +628,7 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#productos">Productos</a></li>
+        <li><a onclick="scrollToSection('entregas-lima')">Entregas y Envíos</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#testimonios">Opiniones</a></li>
         <li><a href="#contacto">Contacto</a></li>
@@ -2767,16 +2809,16 @@
     <h2 class="section-title">ENTREGAS A TODO <span>LIMA METROPOLITANA</span></h2>
     <p class="entregas-subtitle">Estas son algunas de las entregas reales que hemos realizado en Lima. ¡Gracias por la confianza, reyes! 💪</p>
     <div class="entregas-gallery" id="galeriaLima">
-      <img loading="lazy" src="imagenes/entregas-lima/lima-1.jpg" alt="Entrega real en Lima 1">
-      <img loading="lazy" src="imagenes/entregas-lima/lima-2.jpg" alt="Entrega real en Lima 2">
-      <img loading="lazy" src="imagenes/entregas-lima/lima-3.jpg" alt="Entrega real en Lima 3">
-      <img loading="lazy" src="imagenes/entregas-lima/lima-4.jpg" alt="Entrega real en Lima 4">
-      <img loading="lazy" src="imagenes/entregas-lima/lima-5.jpg" alt="Entrega real en Lima 5">
-      <img loading="lazy" src="imagenes/entregas-lima/lima-6.jpg" alt="Entrega real en Lima 6">
+      <img loading="lazy" src="imagenes/imageneslima/lima-1.jpg" alt="Entrega real en Lima 1">
+      <img loading="lazy" src="imagenes/imageneslima/lima-2.jpg" alt="Entrega real en Lima 2">
+      <img loading="lazy" src="imagenes/imageneslima/lima-3.jpg" alt="Entrega real en Lima 3">
+      <img loading="lazy" src="imagenes/imageneslima/lima-4.jpg" alt="Entrega real en Lima 4">
+      <img loading="lazy" src="imagenes/imageneslima/lima-5.jpg" alt="Entrega real en Lima 5">
+      <img loading="lazy" src="imagenes/imageneslima/lima-6.jpg" alt="Entrega real en Lima 6">
     </div>
     <div class="entregas-empty" id="emptyLima" style="display:none;">
       <i class="fa-solid fa-images"></i>
-      <p>Pronto subiremos aquí las fotos de nuestras entregas en Lima. (Coloca tus fotos en la carpeta <b>imagenes/entregas-lima/</b> con los nombres lima-1.jpg, lima-2.jpg, etc.)</p>
+      <p>Pronto subiremos aquí las fotos de nuestras entregas en Lima. (Coloca tus fotos en la carpeta <b>imagenes/imageneslima/</b> con los nombres lima-1.jpg, lima-2.jpg, etc.)</p>
     </div>
   </section>
 
@@ -2785,18 +2827,58 @@
     <h2 class="section-title">ENTREGAS A TODA <span>PROVINCIA</span></h2>
     <p class="entregas-subtitle">Envíos reales realizados a diferentes regiones del Perú. Llegamos a donde estés. 🚚</p>
     <div class="entregas-gallery" id="galeriaProvincia">
-      <img loading="lazy" src="imagenes/entregas-provincia/prov-1.jpg" alt="Envío real a provincia 1">
-      <img loading="lazy" src="imagenes/entregas-provincia/prov-2.jpg" alt="Envío real a provincia 2">
-      <img loading="lazy" src="imagenes/entregas-provincia/prov-3.jpg" alt="Envío real a provincia 3">
-      <img loading="lazy" src="imagenes/entregas-provincia/prov-4.jpg" alt="Envío real a provincia 4">
-      <img loading="lazy" src="imagenes/entregas-provincia/prov-5.jpg" alt="Envío real a provincia 5">
-      <img loading="lazy" src="imagenes/entregas-provincia/prov-6.jpg" alt="Envío real a provincia 6">
+      <img loading="lazy" src="imagenes/imagenesprovincia/prov-1.jpg" alt="Envío real a provincia 1">
+      <img loading="lazy" src="imagenes/imagenesprovincia/prov-2.jpg" alt="Envío real a provincia 2">
+      <img loading="lazy" src="imagenes/imagenesprovincia/prov-3.jpg" alt="Envío real a provincia 3">
+      <img loading="lazy" src="imagenes/imagenesprovincia/prov-4.jpg" alt="Envío real a provincia 4">
+      <img loading="lazy" src="imagenes/imagenesprovincia/prov-5.jpg" alt="Envío real a provincia 5">
+      <img loading="lazy" src="imagenes/imagenesprovincia/prov-6.jpg" alt="Envío real a provincia 6">
     </div>
     <div class="entregas-empty" id="emptyProvincia" style="display:none;">
       <i class="fa-solid fa-images"></i>
-      <p>Pronto subiremos aquí las fotos de nuestros envíos a provincias. (Coloca tus fotos en la carpeta <b>imagenes/entregas-provincia/</b> con los nombres prov-1.jpg, prov-2.jpg, etc.)</p>
+      <p>Pronto subiremos aquí las fotos de nuestros envíos a provincias. (Coloca tus fotos en la carpeta <b>imagenes/imagenesprovincia/</b> con los nombres prov-1.jpg, prov-2.jpg, etc.)</p>
     </div>
   </section>
+
+  <!-- Modal Garantía y Devoluciones -->
+  <div class="policy-overlay" id="policyOverlay" onclick="if(event.target===this)closePolicy()">
+    <div class="policy-modal" role="dialog" aria-label="Garantía y Devoluciones">
+      <div class="policy-head">
+        <h3>Compra con <span>total confianza</span></h3>
+        <button class="policy-close" onclick="closePolicy()" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p class="policy-intro">En RAY Fitness tu tranquilidad es lo primero. Somos una tienda peruana real, con clientes satisfechos en Lima y provincias. Estas son nuestras garantías para que compres seguro:</p>
+      <div class="policy-list">
+        <div class="policy-item">
+          <div class="p-ico"><i class="fa-solid fa-shield-halved"></i></div>
+          <div><h4>Garantía contra defectos de fábrica</h4><p>Si tu producto llega con algún defecto de fábrica, te lo cambiamos sin costo. Solo contáctanos dentro de las 48 horas de recibido con una foto o video.</p></div>
+        </div>
+        <div class="policy-item">
+          <div class="p-ico"><i class="fa-solid fa-rotate-left"></i></div>
+          <div><h4>Cambios y devoluciones</h4><p>¿No era lo que esperabas? Tienes hasta 7 días para solicitar el cambio o devolución, siempre que el producto esté sin uso y en su empaque original.</p></div>
+        </div>
+        <div class="policy-item">
+          <div class="p-ico"><i class="fa-solid fa-box-open"></i></div>
+          <div><h4>Revisa antes de pagar</h4><p>En las entregas en Lima puedes revisar tu producto al momento de recibirlo. Enviamos fotos y videos reales por WhatsApp antes de comprar.</p></div>
+        </div>
+        <div class="policy-item">
+          <div class="p-ico"><i class="fa-solid fa-lock"></i></div>
+          <div><h4>Pago seguro</h4><p>Aceptamos Yape, Plin, transferencia y efectivo contra entrega en Lima. Tú eliges el método que te dé más confianza.</p></div>
+        </div>
+        <div class="policy-item">
+          <div class="p-ico"><i class="fa-solid fa-truck-fast"></i></div>
+          <div><h4>Envíos con seguimiento</h4><p>Todos los envíos a provincia van por agencias reconocidas (Shalom / Olva) con número de seguimiento para que sepas dónde está tu pedido.</p></div>
+        </div>
+        <div class="policy-item">
+          <div class="p-ico"><i class="fa-solid fa-headset"></i></div>
+          <div><h4>Soporte real y cercano</h4><p>Te atiende una persona, no un bot. Resolvemos tus dudas antes, durante y después de tu compra.</p></div>
+        </div>
+      </div>
+      <div class="policy-cta">
+        <a href="https://wa.me/51904776365?text=Hola,%20tengo%20una%20consulta%20sobre%20garantía%20y%20devoluciones" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Tengo una duda</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Botón Flotante de Carrito -->
   <button class="cart-fab" id="cartFab" onclick="openCart()" aria-label="Ver carrito">
@@ -2853,7 +2935,7 @@
         <a href="#nosotros">Sobre Nosotros</a>
         <a href="#testimonios">Opiniones</a>
         <a onclick="scrollToSection('entregas-lima')">Envíos y Delivery</a>
-        <a href="#">Política de Devoluciones</a>
+        <a onclick="openPolicy()">Garantía y Devoluciones</a>
       </div>
       <div class="footer-col">
         <h4>Contacto</h4>
@@ -2968,6 +3050,19 @@
       }
     }
 
+    // === Modal Garantía y Devoluciones ===
+    function openPolicy() {
+      const ov = document.getElementById('policyOverlay');
+      if (ov) { ov.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    }
+    function closePolicy() {
+      const ov = document.getElementById('policyOverlay');
+      if (ov) { ov.classList.remove('open'); document.body.style.overflow = ''; }
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closePolicy();
+    });
+
     // === Scroll reveal animation ===
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
@@ -3023,6 +3118,12 @@
         }, 1200);
       });
       info.appendChild(btn);
+
+      // Voltear al hacer clic en la tarjeta (menos en el botón de carrito o enlaces)
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('.btn-add-cart') || e.target.closest('a')) return;
+        card.classList.toggle('flipped');
+      });
     });
 
     function addToCart(name, priceText, img) {
