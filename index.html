@@ -808,6 +808,93 @@
       position:absolute; bottom:22px; left:0; right:0; text-align:center;
       color:#fff; font-family:'Outfit',sans-serif; font-size:1.02rem; padding:0 20px;
     }
+
+    /* ==========================================================
+       BUSCADOR EN EL NAVBAR (al costado de "Productos")
+       ========================================================== */
+    .nav-search-item{ display:flex; align-items:center; }
+    .nav-search-box{ position:relative; width:210px; }
+    .nav-search-input{
+      width:100%;
+      padding:9px 36px 9px 34px;
+      border-radius:40px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      font-family:'Outfit',sans-serif;
+      font-size:0.9rem;
+      outline:none;
+      transition:border-color .25s ease, box-shadow .25s ease, background .25s ease, width .25s ease;
+    }
+    .nav-search-input::placeholder{ color:rgba(255,255,255,0.5); }
+    .nav-search-input:focus{
+      border-color:#e63946;
+      box-shadow:0 0 0 3px rgba(230,57,70,0.22);
+      background:rgba(255,255,255,0.12);
+    }
+    .nav-search-icon{
+      position:absolute; left:13px; top:50%; transform:translateY(-50%);
+      color:rgba(255,255,255,0.55); font-size:.85rem; pointer-events:none;
+    }
+    .nav-search-clear{
+      position:absolute; right:8px; top:50%; transform:translateY(-50%);
+      width:22px; height:22px; border-radius:50%; border:none;
+      background:rgba(255,255,255,0.15); color:#fff; cursor:pointer;
+      display:none; align-items:center; justify-content:center;
+      font-size:.75rem; transition:background .2s ease;
+    }
+    .nav-search-clear:hover{ background:#e63946; }
+    .nav-search-clear.visible{ display:flex; }
+
+    /* El botón de cerrar del lightbox siempre por encima de la imagen */
+    .img-lightbox .lb-close{ z-index:10; }
+
+    /* ==========================================================
+       AJUSTES RESPONSIVE (la mayoría de clientes usan celular)
+       ========================================================== */
+    @media (max-width: 768px){
+      /* Buscador dentro del menú deslizable: ancho completo y arriba */
+      .nav-links .nav-search-item{ width:80%; justify-content:center; order:-1; margin-bottom:.5rem; }
+      .nav-search-box{ width:100%; }
+      .nav-search-input{ font-size:1rem; padding:12px 40px 12px 38px; }
+      .nav-search-icon{ font-size:1rem; }
+
+      /* Catálogo en 2 columnas para escanear más rápido en el celular */
+      .products-grid{
+        grid-template-columns:repeat(2, 1fr) !important;
+        gap:12px !important;
+      }
+      .flip-card{ height:330px !important; }
+      .flip-card-front .product-img,
+      .product-img{ height:170px !important; }
+      .category-section-divider{ grid-column:1 / -1; }
+      .category-section-divider .divider-label{ font-size:.72rem; letter-spacing:1px; }
+
+      /* La pista de zoom (lupa) siempre visible en móvil, sin hover */
+      .flip-card-front .product-img::after{ opacity:1; }
+
+      /* Categorías: scroll horizontal cómodo con el pulgar */
+      .categories{
+        display:flex; flex-wrap:nowrap; overflow-x:auto;
+        gap:.5rem; padding:0 16px 6px; -webkit-overflow-scrolling:touch;
+        justify-content:flex-start;
+      }
+      .categories::-webkit-scrollbar{ display:none; }
+      .category-btn{ flex:0 0 auto; white-space:nowrap; }
+
+      /* Lightbox cómodo en pantallas pequeñas */
+      .img-lightbox{ padding:14px; }
+      .img-lightbox img{ max-width:96vw; max-height:80vh; }
+      .img-lightbox .lb-close{ top:12px; right:14px; width:42px; height:42px; }
+    }
+
+    @media (max-width: 430px){
+      /* Teléfonos muy angostos: 1 columna para que la foto se vea grande */
+      .products-grid{ grid-template-columns:1fr !important; }
+      .flip-card{ height:380px !important; }
+      .flip-card-front .product-img,
+      .product-img{ height:220px !important; }
+    }
   </style>
 </head>
 <body>
@@ -822,6 +909,13 @@
     </div>
     <nav>
       <ul class="nav-links" id="navLinks">
+        <li class="nav-search-item">
+          <div class="nav-search-box">
+            <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
+            <input type="text" id="searchInput" class="nav-search-input" placeholder="Buscar producto..." autocomplete="off" aria-label="Buscar producto">
+            <button type="button" class="nav-search-clear" id="searchClear" aria-label="Limpiar búsqueda"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </li>
         <li><a href="#productos">Productos</a></li>
         <li><a onclick="scrollToSection('entregas-lima')">Entregas y Envíos</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
@@ -886,7 +980,6 @@
   <!-- Sección de Productos -->
   <section id="productos" class="products-section">
     <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
-    <div class="products-toolbar">
     <div class="categories">
       <button class="category-btn active" data-category="todos" onclick="filterCategory('todos', this)">Todos</button>
       <button class="category-btn" data-category="mancuernas" onclick="filterCategory('mancuernas', this)">Mancuernas</button>
@@ -898,14 +991,6 @@
       <button class="category-btn" data-category="accesorios" onclick="filterCategory('accesorios', this)">Accesorios</button>
       <button class="category-btn" data-category="masajeadores" onclick="filterCategory('masajeadores', this)">Masajeadores</button>
     </div>
-    <div class="search-wrap">
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="Buscar producto..." oninput="applyFilters()" autocomplete="off">
-        <button type="button" class="search-clear" id="searchClear" aria-label="Limpiar búsqueda" onclick="clearSearch()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-    </div>
-    </div><!-- /.products-toolbar -->
     <p id="noResults" class="no-results" style="display:none;">No se encontraron productos. Prueba con otra búsqueda. 🔍</p>
     <div class="products-grid">
       <div class="category-section-divider" id="cat-mancuernas">
@@ -6708,6 +6793,26 @@
         navLinks.classList.remove('active');
       });
     });
+    // Buscador en el navbar (sin handlers inline)
+    (function () {
+      const searchInput = document.getElementById('searchInput');
+      const searchClear = document.getElementById('searchClear');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () { applyFilters(); });
+        searchInput.addEventListener('focus', function () {
+          // En móvil cierra el menú y lleva a la sección de productos
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          scrollToSection('productos');
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); scrollToSection('productos'); }
+        });
+      }
+      if (searchClear) {
+        searchClear.addEventListener('click', function () { clearSearch(); });
+      }
+    })();
 
     // Scroll to top button
     const scrollTopBtn = document.getElementById('scrollTopBtn');
@@ -6822,10 +6927,19 @@
       if (ov) { ov.classList.remove('open'); document.body.style.overflow = ''; }
     }
     (function () {
-      const ov = document.getElementById('imgLightbox');
-      const btn = document.getElementById('lbClose');
-      if (ov) ov.addEventListener('click', function (e) { if (e.target === ov) closeLightbox(); });
-      if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); closeLightbox(); });
+      // Delegación en document: funciona aunque el markup del lightbox
+      // se cargue después de este script.
+      document.addEventListener('click', function (e) {
+        if (e.target && e.target.closest && e.target.closest('#lbClose')) {
+          e.stopPropagation();
+          closeLightbox();
+          return;
+        }
+        // Clic en el fondo oscuro (no en la imagen) también cierra.
+        if (e.target && e.target.id === 'imgLightbox') {
+          closeLightbox();
+        }
+      });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
     })();
 
