@@ -728,6 +728,86 @@
     @media (max-width: 480px) {
       .trust-inner { grid-template-columns: 1fr; }
     }
+    /* ==========================================================
+       TOOLBAR: categorías + buscador al costado
+       ========================================================== */
+    .products-toolbar{
+      display:flex; align-items:center; gap:16px;
+      max-width:1300px; margin:0 auto 34px; padding:0 20px;
+      flex-wrap:wrap;
+    }
+    .products-toolbar .categories{
+      flex:1 1 auto; margin:0;
+      justify-content:flex-start;
+    }
+    .products-toolbar .search-wrap{
+      flex:0 0 300px; margin:0; padding:0; justify-content:flex-end;
+    }
+    .products-toolbar .search-box{ max-width:300px; }
+    @media (max-width: 900px){
+      .products-toolbar{ flex-direction:column; align-items:stretch; }
+      .products-toolbar .categories{ justify-content:center; }
+      .products-toolbar .search-wrap{ flex:1 1 auto; justify-content:center; }
+      .products-toolbar .search-box{ max-width:520px; margin:0 auto; }
+    }
+
+    /* ==========================================================
+       IMAGENES DE PRODUCTO: mejor presentación + zoom al pasar
+       ========================================================== */
+    .flip-card-front .product-img{
+      cursor: zoom-in;
+      overflow: hidden;
+      position: relative;
+      background:#15151a;
+    }
+    .flip-card-front .product-img img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      transition: transform .4s ease;
+    }
+    .flip-card-front:hover .product-img img{ transform: scale(1.07); }
+    /* pista visual de que la imagen se puede ampliar */
+    .flip-card-front .product-img::after{
+      content:"\f00e"; /* lupa + */
+      font-family:"Font Awesome 6 Free"; font-weight:900;
+      position:absolute; bottom:10px; right:10px;
+      width:34px; height:34px; border-radius:50%;
+      background:rgba(0,0,0,.55); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; opacity:0; transition:opacity .25s ease;
+      pointer-events:none;
+    }
+    .flip-card-front:hover .product-img::after{ opacity:1; }
+
+    /* ==========================================================
+       LIGHTBOX: ver la imagen del producto a tamaño original
+       ========================================================== */
+    .img-lightbox{
+      position:fixed; inset:0; z-index:2000;
+      background:rgba(0,0,0,.92);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px; opacity:0; visibility:hidden;
+      transition:opacity .25s ease;
+    }
+    .img-lightbox.open{ opacity:1; visibility:visible; }
+    .img-lightbox img{
+      max-width:95vw; max-height:88vh;
+      width:auto; height:auto; object-fit:contain;
+      border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.6);
+    }
+    .img-lightbox .lb-close{
+      position:absolute; top:18px; right:24px;
+      width:46px; height:46px; border-radius:50%;
+      border:none; background:rgba(255,255,255,.14); color:#fff;
+      font-size:1.6rem; line-height:1; cursor:pointer; display:flex;
+      align-items:center; justify-content:center; transition:background .2s ease;
+    }
+    .img-lightbox .lb-close:hover{ background:#e63946; }
+    .img-lightbox .lb-cap{
+      position:absolute; bottom:22px; left:0; right:0; text-align:center;
+      color:#fff; font-family:'Outfit',sans-serif; font-size:1.02rem; padding:0 20px;
+    }
   </style>
 </head>
 <body>
@@ -806,6 +886,7 @@
   <!-- Sección de Productos -->
   <section id="productos" class="products-section">
     <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
+    <div class="products-toolbar">
     <div class="categories">
       <button class="category-btn active" data-category="todos" onclick="filterCategory('todos', this)">Todos</button>
       <button class="category-btn" data-category="mancuernas" onclick="filterCategory('mancuernas', this)">Mancuernas</button>
@@ -820,10 +901,11 @@
     <div class="search-wrap">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos... (ej. barra, mancuerna, banca)" oninput="applyFilters()" autocomplete="off">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar producto..." oninput="applyFilters()" autocomplete="off">
         <button type="button" class="search-clear" id="searchClear" aria-label="Limpiar búsqueda" onclick="clearSearch()"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>
+    </div><!-- /.products-toolbar -->
     <p id="noResults" class="no-results" style="display:none;">No se encontraron productos. Prueba con otra búsqueda. 🔍</p>
     <div class="products-grid">
       <div class="category-section-divider" id="cat-mancuernas">
@@ -6416,13 +6498,13 @@
   <!-- Sección Testimonios -->
   <section id="testimonios" class="testimonios-section">
     <h2 class="section-title">LO QUE DICEN NUESTROS <span>CLIENTES</span></h2>
-    <p class="testimonios-subtitle">La confianza de nuestros clientes es nuestra mejor carta de presentación.</p>
+    <p class="testimonios-subtitle">Esto es lo que nos cuentan algunos clientes después de recibir su pedido. 🙌</p>
     <div class="testimonios-grid">
       <div class="testimonio-card">
         <div class="testimonio-stars">
           <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
         </div>
-        <p class="testimonio-text">"Excelente calidad en las mancuernas, llegaron rápido y en perfectas condiciones. Totalmente recomendado para armar tu gym en casa."</p>
+        <p class="testimonio-text">"Pedí el set de mancuernas hexagonales para armar mi gym en casa y la verdad quedaron bien. Me escribieron para coordinar la entrega y llegó al día siguiente a Surco. Todo tal cual las fotos, recomendados."</p>
         <div class="testimonio-author">
           <div class="testimonio-avatar">C</div>
           <div>
@@ -6435,7 +6517,7 @@
         <div class="testimonio-stars">
           <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
         </div>
-        <p class="testimonio-text">"Compré la elíptica y quedó increíble. El equipo de RAY Fitness fue súper atento respondiendo todas mis dudas por WhatsApp."</p>
+        <p class="testimonio-text">"La verdad tenía mis dudas de comprar una máquina así por internet, pero me respondieron todo por WhatsApp sin apurarme. La elíptica llegó bien embalada hasta Arequipa y funciona de maravilla. Contenta con la compra :)"</p>
         <div class="testimonio-author">
           <div class="testimonio-avatar">M</div>
           <div>
@@ -6448,7 +6530,7 @@
         <div class="testimonio-stars">
           <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
         </div>
-        <p class="testimonio-text">"Los discos de caucho tienen un peso exacto y el recubrimiento es de muy buena calidad. El envío a Piura llegó sin problema. Volveré a comprar."</p>
+        <p class="testimonio-text">"Compré un juego de discos de caucho y un par de barras. El peso es exacto y se nota la calidad del material. El envío a Piura demoró lo normal, nada que reclamar. Ya voy por mi segunda compra."</p>
         <div class="testimonio-author">
           <div class="testimonio-avatar">R</div>
           <div>
@@ -6723,6 +6805,30 @@
       if (e.key === 'Escape') closePolicy();
     });
 
+    // === Lightbox: ver la imagen del producto a tamaño original ===
+    function openLightbox(src, caption) {
+      const ov = document.getElementById('imgLightbox');
+      const im = document.getElementById('lbImg');
+      const cap = document.getElementById('lbCap');
+      if (!ov || !im) return;
+      im.setAttribute('src', src || '');
+      im.setAttribute('alt', caption || 'Imagen del producto');
+      if (cap) cap.textContent = caption || '';
+      ov.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      const ov = document.getElementById('imgLightbox');
+      if (ov) { ov.classList.remove('open'); document.body.style.overflow = ''; }
+    }
+    (function () {
+      const ov = document.getElementById('imgLightbox');
+      const btn = document.getElementById('lbClose');
+      if (ov) ov.addEventListener('click', function (e) { if (e.target === ov) closeLightbox(); });
+      if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); closeLightbox(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+    })();
+
     // === Scroll reveal animation ===
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
@@ -6779,9 +6885,15 @@
       });
       info.appendChild(btn);
 
-      // Voltear al hacer clic en la tarjeta (menos en el botón de carrito o enlaces)
+      // Clic en la imagen -> abrir la foto a tamaño original (lightbox).
+      // Clic en el resto de la tarjeta -> voltear a "Ver Detalle".
       card.addEventListener('click', function (e) {
         if (e.target.closest('.btn-add-cart') || e.target.closest('a')) return;
+        if (e.target.closest('.product-img')) {
+          const im = card.querySelector('.product-img img');
+          if (im) openLightbox(im.getAttribute('src'), name);
+          return;
+        }
         card.classList.toggle('flipped');
       });
     });
@@ -6914,5 +7026,11 @@
     initGallery('galeriaProvincia', 'emptyProvincia');
   </script>
 
+  <!-- Lightbox para ver la imagen del producto a tamaño original -->
+  <div class="img-lightbox" id="imgLightbox" role="dialog" aria-modal="true" aria-label="Imagen del producto">
+    <button class="lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
+    <img id="lbImg" src="" alt="Imagen del producto">
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
 </body>
 </html>
